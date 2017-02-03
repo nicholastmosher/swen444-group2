@@ -1,6 +1,8 @@
 ---
-title: SWEN-444 Group 2 Week X Status Update
+title: SWEN-444 Group 2 Status Update
 ---
+
+# Week X Status Update
 
 ## Accomplished this week
 

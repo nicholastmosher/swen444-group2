@@ -2,6 +2,8 @@
 title: SWEN-444 Group 2 Week 1 Status Update
 ---
 
+# Week 1 Status Update
+
 ## Accomplished this week
 
 * Collected project proposals
