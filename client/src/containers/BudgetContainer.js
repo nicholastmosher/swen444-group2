@@ -4,18 +4,15 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import AppView from '../views/AppView';
 import * as Actions from '../actions/Actions';
+import BudgetView from '../views/BudgetView';
 
 /**
- * Lambda takes an object with data to pass into the top-level App View.
- * @param greeting The "greeting" entry in the state tree.
- * @param actions The references to action functions.
+ * The BudgetContainer renders exactly to a BudgetView, passing
+ * in all of the props (actions, greeting, and children).
  */
-const App = ({ greeting, actions }) => (
-    <AppView actions={actions}
-             greeting={greeting}
-    />
+const Budget = (props) => (
+  <BudgetView {...props}/>
 );
 
 /**
@@ -29,7 +26,7 @@ const App = ({ greeting, actions }) => (
  * @returns {{state: *}}
  */
 const mapStateToProps = (state) => ({
-    greeting: state.get('greeting')
+  greeting: state.BudgetReducer.get('greeting')
 });
 
 /**
@@ -37,10 +34,7 @@ const mapStateToProps = (state) => ({
  * @param dispatch
  */
 const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(Actions, dispatch),
+  actions: bindActionCreators(Actions, dispatch),
 });
 
-/**
- * Creates a React component from the state mapper, dispatch mapper, and App object.
- */
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(Budget);

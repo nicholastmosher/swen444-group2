@@ -12,6 +12,6 @@ export const sayGoodbye = (name) => ({type: ActionTypes.SAY_GOODBYE, name});
  * Exports an object containing all of the actions.
  */
 export default {
-    sayHello,
-    sayGoodbye,
+  sayHello,
+  sayGoodbye,
 };

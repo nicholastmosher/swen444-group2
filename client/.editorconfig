@@ -6,12 +6,12 @@ insert_final_newline = true
 
 [*.js]
 indent_style = space
-indent_width = 4
+indent_width = 2
 
 [*.css]
 indent_style = space
-indent_width = 4
+indent_width = 2
 
 [*.html]
 indent_style = space
-indent_width = 4
+indent_width = 2
