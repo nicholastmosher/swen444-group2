@@ -4,6 +4,6 @@
  * @author Nick Mosher <nicholastmosher@gmail.com>
  */
 export const ActionTypes = {
-    SAY_HELLO: 'SAY_HELLO',
-    SAY_GOODBYE: 'SAY_GOODBYE',
+  SAY_HELLO: 'SAY_HELLO',
+  SAY_GOODBYE: 'SAY_GOODBYE',
 };
