@@ -5,14 +5,14 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as Actions from '../actions/Actions';
-import BudgetView from '../views/BudgetView';
+import AppView from '../views/AppView';
 
 /**
- * The BudgetContainer renders exactly to a BudgetView, passing
+ * The AppContainer renders exactly to a AppView, passing
  * in all of the props (actions, greeting, and children).
  */
-const Budget = (props) => (
-  <BudgetView {...props}/>
+const App = (props) => (
+  <AppView {...props}/>
 );
 
 /**
@@ -37,4 +37,4 @@ const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(Actions, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Budget);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -3,17 +3,17 @@
  */
 import React from 'react';
 import { Route, IndexRedirect } from 'react-router';
-import BudgetContainer from './containers/BudgetContainer';
-import LoginView from './views/LoginView';
-import DashboardView from './views/DashboardView';
+import AppContainer from './containers/AppContainer';
+import AuthView from './views/login/AuthView';
+import DashboardView from './views/dashboard/DashboardView';
 
 /**
  * URL definitions for budget application.
  */
 export default (
-  <Route path="/" component={BudgetContainer}>
+  <Route path="/" component={AppContainer}>
     <IndexRedirect to="login"/>
-    <Route path="login" component={LoginView}/>
+    <Route path="login" component={AuthView}/>
     <Route path="dashboard" component={DashboardView}/>
   </Route>
 );
