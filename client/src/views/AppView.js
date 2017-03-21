@@ -3,7 +3,7 @@
  */
 import React from 'react';
 
-export default function BudgetView(props) {
+export default function AppView(props) {
   // Pass container props to children.
   const children = React.Children.map(props.children, (child) => (
     React.cloneElement(child, {
@@ -13,7 +13,6 @@ export default function BudgetView(props) {
   ));
   return (
     <div>
-      <h1>Budget View</h1>
       {children}
     </div>
   );

@@ -1,0 +1,11 @@
+.budget-auth-login {
+  float: right;
+  width: (100% - $centerLine) - 2%;
+  h1 {
+    margin-bottom: 1em;
+  }
+  .login-button {
+    display: block;
+    position: relative;
+  }
+}

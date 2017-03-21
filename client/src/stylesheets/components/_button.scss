@@ -1,0 +1,29 @@
+$buttonHeight: 50px;
+$buttonPadding: 60px;
+$buttonFgColor: $colorPrimary500;
+$buttonBgColor: $colorPrimary700;
+
+button, .button {
+  height: $buttonHeight;
+  border-radius: $buttonHeight / 2;
+  border: solid $buttonFgColor;
+  cursor: pointer;
+  padding-left: $buttonPadding;
+  padding-right: $buttonPadding;
+  color: $textLight;
+  background-color: $buttonFgColor;
+
+  transition-property: background-color, border;
+  transition-delay: 0ms;
+  transition-duration: 300ms;
+  transition-timing-function: ease-out;
+
+  &:hover {
+    background-color: $buttonBgColor;
+    border-color: $buttonBgColor;
+  }
+
+  &:focus {
+    outline: none !important;
+  }
+}

@@ -1,0 +1,16 @@
+.budget-auth-navbar {
+  background: $colorPrimary500;
+  h1 {
+    color: $textLight;
+  }
+}
+
+.budget-auth {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4em;
+}
+
+$centerLine: 50%;
+@import './loginview';
+@import './signupview';
