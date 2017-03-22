@@ -5,7 +5,7 @@ import React from 'react';
 import { Component } from 'react';
 import { Map } from 'immutable';
 
-export default class LoginView extends Component {
+class LoginView extends Component {
   constructor() {
     super();
     this.state = Map({
@@ -51,3 +51,5 @@ export default class LoginView extends Component {
     );
   }
 }
+
+export default LoginView;
