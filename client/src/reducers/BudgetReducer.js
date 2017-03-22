@@ -5,7 +5,7 @@ import { Map } from 'immutable';
 import { ActionTypes } from '../constants/ActionTypes';
 
 let initialState = Map({
-  greeting: "Neutral"
+  title: "Money Maid"
 });
 
 export default function Reducer(state = initialState, action) {

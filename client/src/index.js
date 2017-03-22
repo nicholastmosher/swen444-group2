@@ -4,19 +4,27 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, browserHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+import createHistory from 'history/createBrowserHistory';
+import { Route, Redirect } from 'react-router';
+import { ConnectedRouter } from 'react-router-redux';
 import { createStore } from 'redux';
-import routes from './routes';
 import configureStore from './store/configureStore';
+import AuthContainer from './containers/AuthContainer';
+import DashboardContainer from './containers/DashboardContainer';
 import './stylesheets/main.scss';
 
-const store = configureStore();
-const history = syncHistoryWithStore(browserHistory, store);
+const history = createHistory();
+const store = configureStore(history);
 
 render(
   <Provider store={store}>
-    <Router history={history} routes={routes}/>
+    <ConnectedRouter history={history}>
+      <div>
+        <Redirect from="/" to="/auth"/>
+        <Route path="/auth" component={AuthContainer}/>
+        <Route path="/dashboard" component={DashboardContainer}/>
+      </div>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
 );

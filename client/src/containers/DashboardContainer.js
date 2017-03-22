@@ -3,10 +3,12 @@
  */
 import React from 'react';
 
-export default function Dashboard(props) {
+const DashboardContainer = (props) => {
   return (
     <div>
       {props.children}
     </div>
   );
-}
+};
+
+export default DashboardContainer;

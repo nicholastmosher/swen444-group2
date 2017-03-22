@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { Map } from 'immutable';
 
-export default class SignupView extends Component {
+class SignupView extends Component {
   constructor() {
     super();
     this.state = Map({
@@ -110,3 +110,5 @@ export default class SignupView extends Component {
     );
   }
 }
+
+export default SignupView;
