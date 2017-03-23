@@ -20,7 +20,7 @@ render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <div>
-        <Redirect from="/" to="/auth"/>
+        <Route exact path="/" render={()=>(<Redirect to="/auth"/>)}/>
         <Route path="/auth" component={AuthContainer}/>
         <Route path="/dashboard" component={DashboardContainer}/>
       </div>
