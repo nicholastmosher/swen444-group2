@@ -3,10 +3,10 @@
  */
 import React from 'react';
 
-const TransactionView = (props) => (
+const CollaboratorsView = (props) => (
   <div>
-    <h1>TransactionView</h1>
+    <h1>CollaboratorsView</h1>
   </div>
 );
 
-export default TransactionView;
+export default CollaboratorsView;

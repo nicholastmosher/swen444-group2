@@ -3,10 +3,10 @@
  */
 import React from 'react';
 
-const TransactionView = (props) => (
+const GraphsView = (props) => (
   <div>
-    <h1>TransactionView</h1>
+    <h1>GraphsView</h1>
   </div>
 );
 
-export default TransactionView;
+export default GraphsView;
