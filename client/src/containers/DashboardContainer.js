@@ -11,9 +11,9 @@ import CollaboratorsView from '../views/dashboard/CollaboratorsView';
 const DashboardContainer = (props) => (
   <div>
     <NavigationView />
-    <Route path={props.match.url + "/:planId/transactions"} component={TransactionView}/>
-    <Route path={props.match.url + "/:planId/graphs"} component={GraphsView}/>
-    <Route path={props.match.url + "/:planId/collaborators"} component={CollaboratorsView}/>
+    <Route path={props.match.url + "/transactions"} component={TransactionView}/>
+    <Route path={props.match.url + "/graphs"} component={GraphsView}/>
+    <Route path={props.match.url + "/collaborators"} component={CollaboratorsView}/>
   </div>
 );
 
