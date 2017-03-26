@@ -9,7 +9,7 @@ const SplashView = (props) => (
       <div className="child">
         <h1>MoneyMaid</h1>
         <h3>Clean Up Your Finances Today!</h3><br/>
-        <NavLink to="/dashboard" className="btn btn-info start-button" activeClassName="active">Get Started</NavLink>
+        <NavLink to="/auth" className="btn btn-info start-button" activeClassName="active">Get Started</NavLink>
       </div>
     </div>
 );

@@ -16,7 +16,7 @@ const NavigationView = (props) => (
     <nav className="navbar budget-auth-navbar">
       <ul className="nav-inline">
         <li className="nav-inline-item">
-          <h1 className="navbar-brand mb-0">MoneyMaid</h1>
+          <h1 className="navbar-brand mb-0">{props.title}</h1>
         </li>
         <li className="nav-inline-item">
           <div className="dropdown">
@@ -67,6 +67,7 @@ const NavigationView = (props) => (
 const mapStateToProps = ({BudgetReducer}) => ({
   activePlan: BudgetReducer.get('plans').get(BudgetReducer.get('activePlan')).get('name'),
   plans: BudgetReducer.get('plans'),
+  title: BudgetReducer.get('title'),
 });
 
 const mapDispatchToProps = (dispatch) => ({
