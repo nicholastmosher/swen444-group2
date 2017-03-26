@@ -7,6 +7,19 @@ import { connect } from 'react-redux';
 
 const CollaboratorsView = (props) => (
   <div className="container-fluid">
+    <div className="row add-collaborators">
+      <h3 className="col-md-2">Add Collaborators</h3>
+      <div id="custom-search-input">
+        <div className="input-group">
+          <input type="text" className="search-query form-control" placeholder="Collaborator Email"/>
+          <span className="input-group-btn">
+            <button className="btn btn-success" type="button">
+              <span className="glyphicon glyphicon-search">Add User</span>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
     <table className="table table-striped">
       <thead>
       <tr>
@@ -33,19 +46,6 @@ const CollaboratorsView = (props) => (
       ))}
       </tbody>
     </table>
-    <div className="row">
-      <h3 className="col-md-2">Add Collaborators</h3>
-      <div id="custom-search-input">
-        <div className="input-group">
-          <input type="text" className="search-query form-control" placeholder="Collaborator Username"/>
-          <span className="input-group-btn">
-            <button className="btn btn-success" type="button">
-              <span className="glyphicon glyphicon-search">Add User</span>
-            </button>
-          </span>
-        </div>
-      </div>
-    </div>
   </div>
 );
 

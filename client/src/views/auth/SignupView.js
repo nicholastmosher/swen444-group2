@@ -105,7 +105,7 @@ class SignupView extends Component {
                    onChange={this.handleConfirmPassword} />
           </div>
         </div>
-        <button className="signup-button">Create Account</button>
+        <button className="signup-button button-round">Create Account</button>
       </div>
     );
   }
