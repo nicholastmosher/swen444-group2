@@ -16,7 +16,7 @@ const NavigationView = (props) => (
     <nav className="navbar budget-auth-navbar">
       <ul className="nav-inline">
         <li className="nav-inline-item">
-          <h1 className="navbar-brand mb-0">MoneyMaid</h1>
+            <NavLink to="/dashboard" activeClassName="active"><h1 className="navbar-brand mb-0">MoneyMaid</h1></NavLink>
         </li>
         <li className="nav-inline-item">
           <div className="dropdown">
