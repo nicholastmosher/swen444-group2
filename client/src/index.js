@@ -11,6 +11,7 @@ import { createStore } from 'redux';
 import configureStore from './store/configureStore';
 import AuthContainer from './containers/AuthContainer';
 import DashboardContainer from './containers/DashboardContainer';
+import MoneyMaidContainer from './containers/MoneyMaidContainer';
 import './stylesheets/main.scss';
 
 const history = createHistory();
@@ -20,7 +21,7 @@ render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <div>
-        <Route exact path="/" render={()=>(<Redirect to="/auth"/>)}/>
+        <Route exact path="/" component={MoneyMaidContainer}/>
         <Route path="/auth" component={AuthContainer}/>
         <Route path="/dashboard" component={DashboardContainer}/>
       </div>
