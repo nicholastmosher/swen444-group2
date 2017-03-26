@@ -1,0 +1,9 @@
+.nav-inline {
+  margin-bottom: 0;
+}
+
+.nav-inline-item {
+  > a, div {
+    color: $textLight;
+  }
+}

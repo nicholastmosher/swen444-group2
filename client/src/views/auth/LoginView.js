@@ -46,7 +46,7 @@ class LoginView extends Component {
                    onChange={this.handlePassword} />
           </div>
         </div>
-        <button className="login-button">Login</button>
+        <button className="login-button button-round">Login</button>
       </div>
     );
   }

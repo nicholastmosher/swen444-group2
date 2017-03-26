@@ -3,8 +3,10 @@
  * @author Zach Moran <zjm1065@rit.edu>
  */
 import React from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import * as BudgetActions from '../../actions/BudgetActions';
 
 /**
  * Displays the navigation bar at the top of each "dashboard" page.
@@ -27,7 +29,8 @@ const NavigationView = (props) => (
               </a>
               <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 {props.plans.map((plan, id) => (
-                    <a className="dropdown-item" href="/dashboard">{plan.get('name')}</a>
+                    <button className="dropdown-item"
+                            onClick={()=>props.actions.selectPlan(id)}>{plan.get('name')}</button>
                 ))}
               </div>
             </div>
@@ -61,4 +64,8 @@ const mapStateToProps = ({BudgetReducer}) => ({
   plans: BudgetReducer.get('plans'),
 });
 
-export default connect(mapStateToProps)(NavigationView);
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(BudgetActions, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationView);

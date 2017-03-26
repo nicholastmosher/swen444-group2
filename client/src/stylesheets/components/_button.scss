@@ -5,7 +5,6 @@ $buttonBgColor: $colorPrimary700;
 
 button, .button {
   height: $buttonHeight;
-  border-radius: $buttonHeight / 2;
   border: solid $buttonFgColor;
   cursor: pointer;
   padding-left: $buttonPadding;
@@ -26,4 +25,8 @@ button, .button {
   &:focus {
     outline: none !important;
   }
+}
+
+.button-round {
+  border-radius: $buttonHeight / 2;
 }
