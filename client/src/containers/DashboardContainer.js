@@ -7,10 +7,12 @@ import NavigationView from "../views/dashboard/NavigationView";
 import TransactionView from '../views/dashboard/TransactionView';
 import GraphsView from '../views/dashboard/GraphsView';
 import CollaboratorsView from '../views/dashboard/CollaboratorsView';
+import DashboardView from '../views/dashboard/DashboardView';
 
 const DashboardContainer = (props) => (
   <div>
     <NavigationView />
+    <Route path={props.match.url + "/dashboard"} component={DashboardView}/>
     <Route path={props.match.url + "/transactions"} component={TransactionView}/>
     <Route path={props.match.url + "/graphs"} component={GraphsView}/>
     <Route path={props.match.url + "/collaborators"} component={CollaboratorsView}/>
