@@ -38,6 +38,9 @@ const NavigationView = (props) => (
           </div>
         </li>
         <li className="nav-inline-item">
+          <NavLink to="/dashboard" activeClassName="active">Dashboard</NavLink>
+        </li>
+        <li className="nav-inline-item">
           <NavLink to="/dashboard/transactions" activeClassName="active">Transactions</NavLink>
         </li>
         <li className="nav-inline-item">
