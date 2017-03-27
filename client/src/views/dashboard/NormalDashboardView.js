@@ -134,10 +134,8 @@ class NormalDashboardView extends React.Component {
 
     return (
         <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-12">
-              <h1 className="jumbotron-fluid">Dashboard</h1>
-            </div>
+          <div className="row container">
+              <h1 className="dashboard-header">Dashboard</h1>
           </div>
           <div className="row">
             <div className="col-md-6">
