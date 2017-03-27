@@ -2,6 +2,7 @@
  * @author Nick Mosher <nicholastmosher@gmail.com>
  */
 import React from 'react';
+import { Chart } from 'react-google-charts';
 
 const NormalDashboardView = (props) => (
   <div className="container-fluid">
@@ -16,8 +17,26 @@ const NormalDashboardView = (props) => (
             <div className="row container">
               <h3>Summary</h3>
             </div>
-            <div className="row container">
-              <img src="http://www.ielts-exam.net/images/graphs/IELTS_Writing_Task_1_152.png"/>
+            <div className="row">
+              <div className="container">
+                <Chart
+                    chartType="ScatterChart"
+                    data={[
+                        ['Income', 'Money'],
+                        ['Work', 22200],
+                        ['Babysitting', 1000],
+                        ['Coding', 3000],
+                        ['Other', 5932],
+
+                    ]}
+                    options={{
+                      title: 'My Budget',
+                      is3D: true,
+                    }}
+                    width="100%"
+                    graph_id="ScatterChart"
+                />
+              </div>
             </div>
             <div className="row container date-picker-container">
               <div className="col-md-6">
