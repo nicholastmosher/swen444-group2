@@ -1,7 +1,7 @@
 /**
- * @author Nick Mosher <nicholastmosher@gmail.com>
+ * @author Daniel Roberts
  */
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Chart } from 'react-google-charts';
 import DatePicker  from '../../components/DatePicker';
 import { connect } from 'react-redux';
