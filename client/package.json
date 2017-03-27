@@ -40,6 +40,7 @@
     "redux-logger": "^2.8.2",
     "react-moment-proptypes": "latest",
     "lodash.omit": "latest"
+    "react-google-charts": "latest"
   },
   "scripts": {
     "dev": "webpack-dev-server --content-base public/",
