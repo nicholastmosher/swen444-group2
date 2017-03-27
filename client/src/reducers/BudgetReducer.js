@@ -131,6 +131,12 @@ let initialState = Map({
       accesses: List([ 'Read' ]),
     }),
   ]),
+  transactions: Map({
+    '0': Map({
+      id: '0',
+      description: ''
+    })
+  }),
 });
 
 export default function Reducer(state = initialState, action) {
