@@ -1,15 +1,13 @@
 /**
  * @author Nick Mosher <nicholastmosher@gmail.com>
  */
-
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Chart } from 'react-google-charts';
 import DatePicker  from '../../components/DatePicker';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { getMostRecentTransactions, getGraphData, getBalanceData } from '../../data/Utils';
 import * as PlanActions from '../../actions/PlanActions';
-
 
 const NormalDashboardView = (props) => (
   <div className="container-fluid">
@@ -50,7 +48,9 @@ const NormalDashboardView = (props) => (
             <div className="row container row-inner">
               <h3>Summary</h3>
             </div>
-            <div className="row">
+          </div>
+          <div className="row">
+            <div className="col-md-6">
               <div className="container">
                 <Chart
                     chartType="BarChart"
