@@ -21,8 +21,10 @@
 
 .delete-button {
   color:#fff;
-  background-color: $colorPrimary500;
-  border-color: $colorPrimary500;
+  background-color: red;
+  border-color: red;
+  right: 0px;
+  position: absolute;
 }
 
 .date-picker1 {

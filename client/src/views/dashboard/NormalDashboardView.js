@@ -27,9 +27,6 @@ const NormalDashboardView = (props) => (
                 <button className="btn btn-primary date-picker2" type="button">Date Picker2</button>
               </div>
             </div>
-            <div className="row container">
-              <button className="btn btn-success" type="button">Delete Plan</button>
-            </div>
           </div>
         </div>
         <div className="col-md-6">
@@ -52,6 +49,10 @@ const NormalDashboardView = (props) => (
                 <li className="list-group-item">No Wife: </li>
               </ul>
             </div>
+          </div>
+          <br/>
+          <div className="row container">
+            <button className="btn delete-button" type="button">Delete Plan</button>
           </div>
         </div>
       </div>
