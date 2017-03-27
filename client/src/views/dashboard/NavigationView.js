@@ -17,7 +17,6 @@ const NavigationView = (props) => (
       <ul className="nav-inline">
         <li className="nav-inline-item">
             <NavLink to="/dashboard" activeClassName="active"><h1 className="navbar-brand mb-0">{props.title}</h1></NavLink>
-          <h1 className="navbar-brand mb-0">{props.title}</h1>
         </li>
         <li className="nav-inline-item">
           <div className="dropdown">
