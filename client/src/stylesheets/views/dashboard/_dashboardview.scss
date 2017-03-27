@@ -29,16 +29,19 @@
 
 .date-picker1 {
   padding: 5px;
-  align: left;
+  left: 0px;
+  position: absolute;
 }
 
 .date-picker2 {
   padding: 5px;
-  align: right;
+  right: 0px;
+  position: absolute;
 }
 
 .date-picker-container {
   padding: 5px;
+  width: 100%
 }
 
 .child {
