@@ -13,8 +13,20 @@ const NormalDashboardView = (props) => (
       <div className="row">
         <div className="col-md-6">
           <div className="container">
-            <h3>Graphs go here, as well as delete button and datepickers</h3>
-            <button className="btn btn-success" type="button">Delete Plan</button>
+            <div className="row container">
+              <h3>Summary</h3>
+            </div>
+            <div className="row container">
+              <img src="http://www.ielts-exam.net/images/graphs/IELTS_Writing_Task_1_152.png"/>
+            </div>
+            <div className="row container date-picker-container">
+              <div className="col-md-6">
+                <button className="btn btn-primary date-picker1" type="button">Date Picker1</button>
+              </div>
+              <div className="col-md-6">
+                <button className="btn btn-primary date-picker2" type="button">Date Picker2</button>
+              </div>
+            </div>
           </div>
         </div>
         <div className="col-md-6">
@@ -37,6 +49,10 @@ const NormalDashboardView = (props) => (
                 <li className="list-group-item">No Wife: </li>
               </ul>
             </div>
+          </div>
+          <br/>
+          <div className="row container">
+            <button className="btn delete-button" type="button">Delete Plan</button>
           </div>
         </div>
       </div>
