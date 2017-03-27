@@ -26,15 +26,20 @@
   },
   "dependencies": {
     "immutable": "^3.8.1",
+    "moment": "^2.18.1",
     "react": "^15.4.2",
+    "react-addons-shallow-compare": "^15.4.2",
+    "react-dates": "^8.2.1",
     "react-dom": "^15.4.2",
+    "react-google-charts": "latest",
     "react-redux": "^5.0.3",
     "react-router": "^4.0.0",
     "react-router-dom": "^4.0.0",
     "react-router-redux": "^5.0.0-alpha.4",
     "redux": "^3.6.0",
     "redux-logger": "^2.8.2",
-    "react-google-charts": "latest"
+    "react-moment-proptypes": "latest",
+    "lodash.omit": "latest"
   },
   "scripts": {
     "dev": "webpack-dev-server --content-base public/",
