@@ -1,5 +1,5 @@
 /**
- * @author Nick Mosher <nicholastmosher@gmail.com>
+ * @author Daniel Roberts
  */
 import React, { PropTypes } from 'react';
 import momentPropTypes from 'react-moment-proptypes';
@@ -134,17 +134,13 @@ class NormalDashboardView extends React.Component {
 
     return (
         <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-12">
-              <h1 className="jumbotron-fluid">Dashboard</h1>
-            </div>
+          <div className="row container">
+              <h1 className="dashboard-header">Dashboard</h1>
           </div>
           <div className="row">
             <div className="col-md-6">
               <div className="container">
-                <div className="row container">
-                  <h3>Summary</h3>
-                </div>
+                <h3>Summary</h3>
                 <div className="row">
                   <div className="container">
                     <Chart
@@ -172,7 +168,6 @@ class NormalDashboardView extends React.Component {
                   </div>
                   <div className="col-md-6">
                     <DateRangePicker
-                        className="DateRangePicker date-picker"
                         {...props}
                         onDatesChange={this.onDatesChange}
                         onFocusChange={this.onFocusChange}
