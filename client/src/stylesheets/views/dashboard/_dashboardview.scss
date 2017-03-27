@@ -1,0 +1,45 @@
+.dashboard-border {
+  border: thin limegreen;
+}
+
+.dashboard-header {
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
+.dashboard-contents {
+
+}
+
+.income-color {
+  color: limegreen;
+}
+
+.expense-color {
+  color: red;
+}
+
+.delete-button {
+  color:#fff;
+  background-color: $colorPrimary500;
+  border-color: $colorPrimary500;
+}
+
+.child-text {
+  position: relative;
+}
+
+.parent-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.collab-updates {
+
+}
+
+.dashboard-graphs {
+
+}
