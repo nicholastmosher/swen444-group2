@@ -16,7 +16,7 @@ const NavigationView = (props) => (
     <nav className="navbar budget-auth-navbar">
       <ul className="nav-inline">
         <li className="nav-inline-item">
-          <h1 className="navbar-brand mb-0">{props.title}</h1>
+            <NavLink to="/dashboard" activeClassName="active"><h1 className="navbar-brand mb-0">{props.title}</h1></NavLink>
         </li>
         <li className="nav-inline-item">
           <div className="dropdown">
@@ -44,7 +44,7 @@ const NavigationView = (props) => (
           <NavLink to="/dashboard/transactions" activeClassName="active">Transactions</NavLink>
         </li>
         <li className="nav-inline-item">
-          <NavLink to="/dashboard/graphs" activeClassName="active">Graphs and Reports</NavLink>
+          <NavLink to="/dashboard/graphs" activeClassName="active">Graphs</NavLink>
         </li>
         <li className="nav-inline-item">
           <NavLink to="/dashboard/collaborators" activeClassName="active">Collaborators</NavLink>
