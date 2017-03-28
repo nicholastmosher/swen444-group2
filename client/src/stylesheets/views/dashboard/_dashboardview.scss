@@ -1,0 +1,61 @@
+.dashboard-border {
+  border: thin limegreen;
+}
+
+.dashboard-header {
+  margin-top: 15px;
+  position: relative;
+  text-align-last: center;
+
+}
+
+.dashboard-contents {
+
+}
+
+.income-color {
+  color: limegreen;
+}
+
+.expense-color {
+  color: red;
+}
+
+.delete-button {
+  color:#fff;
+  background-color: red;
+  border-color: red;
+  right: 0px;
+  position: absolute;
+}
+
+.date-picker {
+  padding: 10px;
+  width: 100%;
+  left: 0px;
+  position: absolute;
+}
+
+.date-picker-container {
+  padding: 5px;
+  width: 100%
+}
+
+.child {
+  position: relative;
+}
+
+.parent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.collab-updates {
+
+}
+
+.dashboard-graphs {
+
+}

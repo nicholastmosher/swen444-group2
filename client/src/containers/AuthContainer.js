@@ -9,7 +9,7 @@ import LoginView from '../views/auth/LoginView';
 const AuthContainer = (props) => (
   <div>
     <nav className="navbar budget-auth-navbar">
-      <h1 className="navbar-brand mb-0">{props.title}</h1>
+      <h1 className="navbar-brand mb-0">&nbsp; {props.title}</h1>
     </nav>
     <div className="budget-auth container">
       <SignupView />

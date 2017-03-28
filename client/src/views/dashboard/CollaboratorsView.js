@@ -41,7 +41,9 @@ const CollaboratorsView = (props) => (
           <td>{collaborator.get('firstName')}</td>
           <td>{collaborator.get('lastName')}</td>
           <td>{collaborator.get('email')}</td>
-          <td>{props.privileges(collaborator).map(p => (p + ", "))}</td>
+          <td>{props.privileges(collaborator).map(p => (p + ", "))}
+          <button className="btn-danger btn-sm float-right">Revoke Access</button>
+          </td>
         </tr>
       ))}
       </tbody>

@@ -1,0 +1,68 @@
+.mainView{
+  padding: 10px;
+}
+.sidebar {
+    height: 100%; /* 100% Full-height */
+    width:20%;
+    display:inline-block;
+    float: left;
+    padding-bottom: 10px;
+    padding-left: 1px;
+}
+
+.sidebar h3{
+  color: white;
+  border-bottom-style-style: solid;
+  border-top-style-style: solid;
+  background-color: #4caf50;
+  border-radius: 3px;
+  font-size: large;
+}
+
+.sidebar h2{
+  font-size: x-large;
+}
+.box{
+  border-style: solid;
+  overflow-x: hidden;
+  border-radius: 5px;
+}
+
+#graph{
+  padding-top:50px;
+  padding-left:300px;
+  float: left;
+  display:inline-block;
+}
+
+#generateReport{
+  padding-left: 50px;
+}
+
+#graphKey{
+  float: right;
+  margin-top: 250px;
+  position: initial;
+  color: white;
+}
+
+.color1{
+  background-color: #3d9bb6;
+}
+.color2{
+  background-color: #5eb35e;
+}
+
+.color3{
+  background-color: #e99f27;
+}
+
+.color4{
+  background-color: #df5f30;
+}
+
+.color5{
+  background-color: #4458bc;
+}
+
+
