@@ -7,7 +7,7 @@ let BUILD_DIR = path.resolve(__dirname, 'public');
 let config = {
   entry: [
     `bootstrap-loader/lib/bootstrap.loader?configFilePath=${__dirname}/bs4.yml!bootstrap-loader/no-op.js`,
-    APP_DIR + '/index.js'
+    APP_DIR + '/js/index.js'
   ],
   output: {
     path: BUILD_DIR,
