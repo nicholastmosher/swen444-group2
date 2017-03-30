@@ -12,7 +12,7 @@ import configureStore from './store/configureStore';
 import AuthContainer from './containers/AuthContainer';
 import DashboardContainer from './containers/DashboardContainer';
 import MoneyMaidContainer from './containers/MoneyMaidContainer';
-import './stylesheets/main.scss';
+import '../stylesheets/main.scss';
 
 const history = createHistory();
 const store = configureStore(history);
