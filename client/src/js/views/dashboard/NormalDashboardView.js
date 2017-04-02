@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { Chart } from 'react-google-charts';
-import { DatePicker } from '../../components/DatePicker';
+import DatePicker  from '../../components/DatePicker';
 
 const NormalDashboardView = (props) => (
   <div className="container-fluid">
@@ -42,7 +42,7 @@ const NormalDashboardView = (props) => (
             </div>
             <div className="row container date-picker-container">
               <div className="col-md-6">
-                { DatePicker(this.props) }
+                <DatePicker />
               </div>
             </div>
           </div>
