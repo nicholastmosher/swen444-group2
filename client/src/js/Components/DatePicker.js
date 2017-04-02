@@ -8,8 +8,6 @@ import omit from 'lodash.omit';
 
 import { DateRangePicker, isInclusivelyAfterDay } from 'react-dates';
 
-import '../../stylesheets/vendors/_datepicker.scss';
-
 const CONSTANTS = {
   DISPLAY_FORMAT: 'L',
   ISO_FORMAT: 'YYYY-MM-DD',
