@@ -16,8 +16,6 @@ const DashboardContainer = (props) => (
     <Route path={props.match.url + "/transactions"} component={TransactionView}/>
     <Route path={props.match.url + "/graphs"} component={GraphsView}/>
     <Route path={props.match.url + "/collaborators"} component={CollaboratorsView}/>
-
-    <h1> this is a very nice cool header </h1>
   </div>
 );
 

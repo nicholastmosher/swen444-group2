@@ -48,9 +48,7 @@ const NormalDashboardView = (props) => (
             <div className="row container row-inner">
               <h3>Summary</h3>
             </div>
-          </div>
-          <div className="row">
-            <div className="col-md-6">
+            <div className="row">
               <div className="container">
                 <Chart
                     chartType="BarChart"
