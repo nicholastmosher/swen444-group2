@@ -52,13 +52,13 @@ const CollaboratorsView = (props) => (
 );
 
 const mapStateToProps = ({BudgetReducer}) => {
-  const activePlan = BudgetReducer.get('plans').get(BudgetReducer.get('activePlan'));
-  const planPermissions = BudgetReducer.get('permissions').filter(p => p.get('plan') === activePlan.get('id'));
-  const ownerId = planPermissions.filter(p => p.get('accesses').includes('Owner')).first().get('user');
-  const collaboratorIds = planPermissions.filter(p => !p.get('accesses').includes('Owner')).map(p => p.get('user'));
-  const owner = BudgetReducer.get('users').get(ownerId);
-  const collaborators = collaboratorIds.map(id => BudgetReducer.get('users').get(id));
-  const privileges = (user) => (planPermissions.filter(p => p.get('user') === user.get('id')).first().get('accesses'));
+  const activePlan = BudgetReducer.getIn(['plans', BudgetReducer.get('activePlan')]);
+  const planPermissions = BudgetReducer.get('permissions').filter(p => p.plan === activePlan.id);
+  const ownerId = planPermissions.filter(p => p.accesses.includes('Owner')).first().user;
+  const collaboratorIds = planPermissions.filter(p => !p.accesses.includes('Owner')).map(p => p.user);
+  const owner = BudgetReducer.getIn(['users', ownerId]);
+  const collaborators = collaboratorIds.map(id => BudgetReducer.getIn(['users', id]));
+  const privileges = (user) => (planPermissions.filter(p => p.user === user.id).first().accesses);
   return {
     owner,
     collaborators,
