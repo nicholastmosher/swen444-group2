@@ -16,7 +16,7 @@ const NavigationView = (props) => (
     <nav className="navbar budget-auth-navbar">
       <ul className="nav-inline">
         <li className="nav-inline-item">
-            <NavLink to="/dashboard" activeClassName="active"><h1 className="navbar-brand mb-0">{props.title}</h1></NavLink>
+          <NavLink to="/dashboard" activeClassName="active"><h1 className="navbar-brand mb-0">{props.title}</h1></NavLink>
         </li>
         <li className="nav-inline-item">
           <div className="dropdown">
@@ -29,10 +29,10 @@ const NavigationView = (props) => (
             </a>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
               {props.plans.map((plan, id) => (
-                  <button className="dropdown-item"
-                          onClick={()=>props.actions.selectPlan(id)}>
-                    {plan.get('name')}
-                  </button>
+                <button className="dropdown-item"
+                        onClick={()=>props.actions.selectPlan(id)}>
+                  {plan.get('name')}
+                </button>
               ))}
             </div>
           </div>
