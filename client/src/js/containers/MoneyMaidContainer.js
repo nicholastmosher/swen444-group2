@@ -6,14 +6,7 @@ import { connect } from 'react-redux';
 import SplashView from '../views/moneymaid/SplashView';
 
 const MoneyMaidContainer = (props) => (
-    <div>
-      <nav className="navbar budget-auth-navbar">
-        <h1 className="navbar-brand mb-0">&nbsp; {props.title}</h1>
-      </nav>
-      <div>
-        <SplashView />
-      </div>
-    </div>
+  <SplashView />
 );
 
 const mapStateToProps = (state) => ({
