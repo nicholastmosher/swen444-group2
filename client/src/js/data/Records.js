@@ -64,7 +64,7 @@ export const Plan = new Record({
  * @param accesses: A List of permissions (read, write, etc.) granted.
  */
 export const Permission = new Record({
-  collaborator: undefined,
+  user: undefined,
   plan: undefined,
   accesses: List( ),
 });
