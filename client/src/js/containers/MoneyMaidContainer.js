@@ -10,7 +10,7 @@ const MoneyMaidContainer = (props) => (
 );
 
 const mapStateToProps = (state) => ({
-  title: state.BudgetReducer.get('title'),
+  title: 'MoneyMaid',
 });
 
 export default connect(mapStateToProps)(MoneyMaidContainer);
