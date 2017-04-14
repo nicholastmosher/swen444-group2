@@ -52,7 +52,7 @@ const CollaboratorsView = (props) => (
 );
 
 const mapStateToProps = ({PlanReducer, UserReducer}) => {
-  const activePlan = PlanReducer.get('activePlan');
+  const activePlan = PlanReducer.getIn([ 'plans', PlanReducer.get('activePlan') ]);
   const planPermissions = PlanReducer.get('permissions').filter(p => p.plan === activePlan.id);
   const ownerId = planPermissions.filter(p => p.accesses.includes('Owner')).first().user;
   const collaboratorIds = planPermissions.filter(p => !p.accesses.includes('Owner')).map(p => p.user);

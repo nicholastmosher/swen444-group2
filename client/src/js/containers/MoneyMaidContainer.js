@@ -9,8 +9,8 @@ const MoneyMaidContainer = (props) => (
   <SplashView />
 );
 
-const mapStateToProps = (state) => ({
-  title: 'MoneyMaid',
+const mapStateToProps = ({AppReducer}) => ({
+  title: AppReducer.get('title'),
 });
 
 export default connect(mapStateToProps)(MoneyMaidContainer);

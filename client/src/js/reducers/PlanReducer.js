@@ -14,6 +14,9 @@ const PlanReducer = (state = plans, action) => {
     case PlanActionTypes.RENAME_PLAN:
       return state; //TODO implement
 
+    case PlanActionTypes.SELECT_PLAN:
+      return state; //TODO implement
+
     case PlanActionTypes.ADD_COLLABORATOR:
       return state; //TODO implement
 
