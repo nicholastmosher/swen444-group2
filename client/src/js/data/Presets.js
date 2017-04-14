@@ -2,10 +2,14 @@
  * @author Nick Mosher <nicholastmosher@gmail.com>
  */
 import { fromJS } from 'immutable';
-import { User, Plan, Permission, Tag, Transaction } from './Records';
+import { User, Account, Plan, Permission, Tag, Transaction } from './Records';
 
-export const dummy1 = fromJS({
-  title: 'Money Maid',
+export const users = fromJS({
+  account: Account({
+    id: 0,
+    user: 0,
+    password: 'password12345',
+  }),
   users: {
     '0': User({
       id: '0',
@@ -68,7 +72,10 @@ export const dummy1 = fromJS({
       email: 'jordan@example.com'
     }),
   },
-  activePlan: '0',
+});
+
+export const plans = fromJS({
+  activePlan: 0,
   plans: {
     '0': Plan({
       id: '0',
@@ -131,6 +138,32 @@ export const dummy1 = fromJS({
       accesses: [ 'Read' ],
     }),
   ],
+});
+
+export const transactions = fromJS({
+  transactions: {
+    '0': Transaction({
+      id: '0',
+      previous: null,
+      amount: 1000.00,
+      category: '4',
+      tags: [],
+    }),
+    '1': Transaction({
+      id: '1',
+      previous: '0',
+      amount: -34.22,
+      category: '1',
+      tags: ['2'],
+    }),
+    '2': Transaction({
+      id: '2',
+      previous: '1',
+      amount: -111.23,
+      category: '3',
+      tags: ['4'],
+    }),
+  },
   tags: {
     '0': Tag({
       id: '0',
@@ -153,28 +186,4 @@ export const dummy1 = fromJS({
       key: 'Income',
     }),
   },
-  transactions: {
-    '0': Transaction({
-      id: '0',
-      previous: null,
-      amount: 1000.00,
-      category: '4',
-      tags: [ ],
-    }),
-    '1': Transaction({
-      id: '1',
-      previous: '0',
-      amount: -34.22,
-      category: '1',
-      tags: [ '2' ],
-    }),
-    '2': Transaction({
-      id: '2',
-      previous: '1',
-      amount: -111.23,
-      category: '3',
-      tags: [ '4' ],
-    }),
-  },
 });
-
