@@ -64,10 +64,10 @@ const NavigationView = (props) => (
   </div>
 );
 
-const mapStateToProps = ({BudgetReducer}) => ({
-  activePlan: BudgetReducer.get('plans').get(BudgetReducer.get('activePlan')).get('name'),
-  plans: BudgetReducer.get('plans'),
-  title: BudgetReducer.get('title'),
+const mapStateToProps = ({PlanReducer}) => ({
+  activePlan: PlanReducer.getIn([ 'plans', PlanReducer.get('activePlan'), 'name' ]),
+  plans: PlanReducer.get('plans'),
+  title: 'MoneyMaid',
 });
 
 const mapDispatchToProps = (dispatch) => ({

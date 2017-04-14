@@ -16,8 +16,8 @@ const DashboardView = (props) => (
   </div>
 );
 
-const mapStateToProps = ({BudgetReducer}) => ({
-  isInitialPage: !BudgetReducer.has('transactions'),
+const mapStateToProps = ({TransactionReducer}) => ({
+  isInitialPage: !TransactionReducer.has('transactions'),
 });
 
 export default connect(mapStateToProps)(DashboardView);
