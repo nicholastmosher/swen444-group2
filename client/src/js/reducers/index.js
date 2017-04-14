@@ -3,10 +3,14 @@
  */
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
-import BudgetReducer from './BudgetReducer';
+import PlanReducer from './PlanReducer';
+import UserReducer from './UserReducer';
+import TransactionReducer from './TransactionReducer';
 
 const rootReducer = combineReducers({
-  BudgetReducer,
+  PlanReducer,
+  UserReducer,
+  TransactionReducer,
   routing,
 });
 
