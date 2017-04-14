@@ -3,56 +3,86 @@
  * @author Adam Audycki <apa7395@rit.edu>
  */
 import React from 'react';
+import DatePicker  from '../../components/DatePicker';
+import { Chart } from 'react-google-charts';
+import { Component } from 'react';
+import { Map } from 'immutable';
 
-const GraphsView = (props) => (
-  <div className="mainView">
-    <h1>Graphs and Reports</h1>
-    <div id="config_sidebar" className="sidebar box">
-        <h2>Graph Configurations</h2>
-        <h3>Type of Graph</h3>
-        <div className="radio">
-            <label><input type="radio" name="optradio"/>Bar Graph</label>
-        </div>
-        <div className="radio">
-            <label><input type="radio" name="optradio"/>Line Graph</label>
-        </div>
-        <div className="radio">
-            <label><input type="radio" name="optradio"/>Pie Chart</label>
-        </div>
-        <div className="radio">
-            <label><input type="radio" name="optradio"/>Scatter Plot</label>
-        </div>
+class GraphsView extends Component {
+    constructor() {
+        super();
+        this.state = Map({
+            graph: '',
+        });
+    }
 
-        <h3>Filter by Date</h3>
-            <input type="text" name="startDate" placeholder="MM/DD/YYYY"/><br/>
-            <input type="text" name="endDate" placeholder="MM/DD/YYYY"/><br/>
+    onSiteChanged(e) {
+        console.log(e);
+        this.state.set('graph', e.target.value);
+    }
 
-        <h3>Filter</h3>
-        <div className="radio">
-            <label><input type="radio" name="optradio"/>Income</label>
-        </div>
-        <div className="radio">
-            <label><input type="radio" name="optradio" defaultChecked/>Expenses</label>
-        </div>
-        <div id="generateReport">
-            <button id="genReport" className="btn btn-success">Generate Report</button>
-        </div>
-    </div>
+    render() {
+        return (
 
-    <div id="graph">
-      <img src={'https://docs.oracle.com/javase/8/javafx/user-interface-tutorial/img/pie-sample.png'}/>
-    </div>
+            <div className="container-fluid">
+                <h1>Graphs and Reports</h1>
+            <div className="row">
 
-    <div id="graphKey" className="box">
-        <ul className="list-group">
-            <li className="list-group-item color1">Food</li>
-            <li className="list-group-item color2">Gas</li>
-            <li className="list-group-item color3">Car Payment</li>
-            <li className="list-group-item color4">College Payment</li>
-            <li className="list-group-item color5">Utilities</li>
-        </ul>
-    </div>
-  </div>
-);
+                <div id="config_sidebar" className="col-md-3">
+                    <h2>Graph Configurations</h2>
+                    <h3>Type of Graph</h3>
+                    <div className="radio">
+                        <label><input type="radio" name="optradio" value="BarChart"/>Bar Graph</label>
+                    </div>
+                    <div className="radio">
+                        <label><input type="radio" name="optradio" value="LineChart"/>Line Graph</label>
+                    </div>
+                    <div className="radio">
+                        <label><input type="radio" name="optradio" value="PieChart" onChange={this.onSiteChanged}/>Pie
+                            Chart</label>
+                    </div>
+                    <div className="radio">
+                        <label><input type="radio" name="optradio" value="ScatterChart"/>Scatter Plot</label>
+                    </div>
+
+                    <h3>Filter by Date</h3>
+                    <DatePicker />
+
+                    <h3>Filter</h3>
+                    <div className="radio">
+                        <label><input type="radio" name="optradio"/>Income</label>
+                    </div>
+                    <div className="radio">
+                        <label><input type="radio" name="optradio" defaultChecked/>Expenses</label>
+                    </div>
+                    <div id="generateReport">
+                        <button id="genReport" className="btn btn-success">Generate Report</button>
+                    </div>
+                </div>
+
+                <div className="col-md-9">
+                    <Chart
+                        chartType="PieChart"
+                        data={[
+                            ['Income', 'Money'],
+                            ['Work', 22200],
+                            ['Babysitting', 1000],
+                            ['Coding', 3000],
+                            ['Other', 5932],
+
+                        ]}
+                        options={{
+                            title: 'My Budget',
+                            is3D: true,
+                        }}
+                        width="100%"
+                        graph_id="PieChart"
+                    />
+                </div>
+            </div>
+            </div>
+        );
+    }
+}
 
 export default GraphsView;
