@@ -7,7 +7,6 @@ import { Provider } from 'react-redux';
 import createHistory from 'history/createHashHistory';
 import { Route, Redirect } from 'react-router';
 import { ConnectedRouter } from 'react-router-redux';
-import { createStore } from 'redux';
 import configureStore from './store/configureStore';
 import AuthContainer from './containers/AuthContainer';
 import DashboardContainer from './containers/DashboardContainer';
