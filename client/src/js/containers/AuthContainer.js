@@ -18,8 +18,8 @@ const AuthContainer = (props) => (
   </div>
 );
 
-const mapStateToProps = (state) => ({
-  title: 'MoneyMaid',
+const mapStateToProps = ({AppReducer}) => ({
+  title: AppReducer.get('title'),
 });
 
 export default connect(mapStateToProps)(AuthContainer);

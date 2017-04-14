@@ -4,6 +4,12 @@
 import { fromJS } from 'immutable';
 import { User, Account, Plan, Permission, Tag, Transaction } from './Records';
 
+export const application = fromJS({
+  title: 'Money Maid',
+  userLoggedIn: false,
+  activeAccount: undefined,
+});
+
 export const users = fromJS({
   account: Account({
     id: 0,
@@ -75,7 +81,7 @@ export const users = fromJS({
 });
 
 export const plans = fromJS({
-  activePlan: 0,
+  activePlan: '0',
   plans: {
     '0': Plan({
       id: '0',
