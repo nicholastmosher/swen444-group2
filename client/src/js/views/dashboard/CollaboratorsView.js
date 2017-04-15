@@ -4,6 +4,7 @@
  */
 import React from 'react';
 import { connect } from 'react-redux';
+import { toCSV } from '../../data/Utils';
 
 const CollaboratorsView = (props) => (
   <div className="container-fluid">
@@ -34,14 +35,14 @@ const CollaboratorsView = (props) => (
           <td>{props.owner.get('firstName')}</td>
           <td>{props.owner.get('lastName')}</td>
           <td>{props.owner.get('email')}</td>
-          <td>{props.privileges(props.owner).map(p => (p + ", "))}</td>
+          <td>{toCSV(props.privileges(props.owner).toSeq())}</td>
         </tr>
       {props.collaborators.map(collaborator => (
         <tr key={collaborator.get('id')}>
           <td>{collaborator.get('firstName')}</td>
           <td>{collaborator.get('lastName')}</td>
           <td>{collaborator.get('email')}</td>
-          <td>{props.privileges(collaborator).map(p => (p + ", "))}
+          <td>{toCSV(props.privileges(collaborator).toSeq())}
           <button className="btn-danger btn-sm float-right">Revoke Access</button>
           </td>
         </tr>
