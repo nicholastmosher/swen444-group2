@@ -6,19 +6,23 @@ import React from 'react';
 import DatePicker  from '../../components/DatePicker';
 import { Chart } from 'react-google-charts';
 import { Component } from 'react';
-import { Map } from 'immutable';
 
 class GraphsView extends Component {
     constructor() {
         super();
-        this.state = Map({
-            graph: '',
-        });
+       // const selectedOption = 'PieChart';
+        GraphsView.state = {
+            selectedOption : 'PieChart'
+        };
+        this.onSiteChanged = this.onSiteChanged.bind(this);
     }
-
-    onSiteChanged(e) {
-        console.log(e);
-        this.state.set('graph', e.target.value);
+    onSiteChanged(event) {
+        console.log(event.target.value);
+        //this.selectedOption = chart;
+        this.setState({
+            selectedOption: event.target.value
+        });
+        console.log(this);
     }
 
     render() {
@@ -28,21 +32,21 @@ class GraphsView extends Component {
                 <h1>Graphs and Reports</h1>
             <div className="row">
 
-                <div id="config_sidebar" className="col-md-3">
+                <div id="config_sidebar" className="col-md-3 sidebar">
                     <h2>Graph Configurations</h2>
                     <h3>Type of Graph</h3>
+
                     <div className="radio">
-                        <label><input type="radio" name="optradio" value="BarChart"/>Bar Graph</label>
+                        <label><input type="radio" name="optradio" value="BarChart" onChange={this.onSiteChanged}/>Bar Graph</label>
                     </div>
                     <div className="radio">
-                        <label><input type="radio" name="optradio" value="LineChart"/>Line Graph</label>
+                        <label><input type="radio" name="optradio" value="LineChart" onChange={this.onSiteChanged}/>Line Graph</label>
                     </div>
                     <div className="radio">
-                        <label><input type="radio" name="optradio" value="PieChart" onChange={this.onSiteChanged}/>Pie
-                            Chart</label>
+                        <label><input type="radio" name="optradio" value="PieChart" onChange={this.onSiteChanged}/>PieChart</label>
                     </div>
                     <div className="radio">
-                        <label><input type="radio" name="optradio" value="ScatterChart"/>Scatter Plot</label>
+                        <label><input type="radio" name="optradio" value="ScatterChart" onChange={this.onSiteChanged}/>Scatter Plot</label>
                     </div>
 
                     <h3>Filter by Date</h3>
@@ -50,10 +54,10 @@ class GraphsView extends Component {
 
                     <h3>Filter</h3>
                     <div className="radio">
-                        <label><input type="radio" name="optradio"/>Income</label>
+                        <label><input type="radio" name="radio"/>Income</label>
                     </div>
                     <div className="radio">
-                        <label><input type="radio" name="optradio" defaultChecked/>Expenses</label>
+                        <label><input type="radio" name="radio" defaultChecked/>Expenses</label>
                     </div>
                     <div id="generateReport">
                         <button id="genReport" className="btn btn-success">Generate Report</button>
@@ -62,7 +66,7 @@ class GraphsView extends Component {
 
                 <div className="col-md-9">
                     <Chart
-                        chartType="PieChart"
+                        chartType={this.selectedOption}
                         data={[
                             ['Income', 'Money'],
                             ['Work', 22200],
@@ -76,7 +80,7 @@ class GraphsView extends Component {
                             is3D: true,
                         }}
                         width="100%"
-                        graph_id="PieChart"
+                        graph_id={this.selectedOption}
                     />
                 </div>
             </div>
