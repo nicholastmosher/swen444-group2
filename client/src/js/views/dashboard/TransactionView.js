@@ -2,13 +2,23 @@
  * @author Nick Mosher <nicholastmosher@gmail.com>
  */
 import React from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import * as TransactionActions from '../../actions/TransactionActions';
+import { getTransactions, toCSV } from '../../data/Utils';
 
 const TransactionView = (props) => (
   <div className="container-fluid">
     <div className="row add-transactions">
       <h3 className="col-md-2">Add Transactions</h3>
-      <button className="btn btn-success" type="button">
+      <button className="btn btn-success" type="button"
+              onClick={()=>props.actions.addTransaction(
+                props.baseTid,
+                '04/05/06',
+                'Newly added transaction',
+                123,
+                '4'
+              )}>
         <span className="glyphicon glyphicon-search">Add Transaction</span>
       </button>
     </div>
@@ -19,44 +29,39 @@ const TransactionView = (props) => (
         <th className="th">Description</th>
         <th className="th">Amount</th>
         <th className="th">Remaining Balance</th>
+        <th className="th">Category</th>
+        <th className="th">Tags</th>
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td>03/07/17</td>
-        <td>Got some groceries</td>
-        <td>$61.67</td>
-        <td>$107.33</td>
+      {props.transactions.entrySeq().map(([t, amount]) => (
+      <tr key={t.id}>
+        <td>{t.date}</td>
+        <td>{t.description}</td>
+        <td>{(t.amount > 0 ? ('+' + t.amount) : t.amount)}</td>
+        <td>{amount}</td>
+        <td>{t.category}</td>
+        <td>{toCSV(t.tags.toSeq())}</td>
       </tr>
-      <tr>
-        <td>03/08/18</td>
-        <td>Snacks and gas</td>
-        <td>$41.97</td>
-        <td>$107.33</td>
-      </tr>
-      {/*<tr>*/}
-        {/*<td>{props.owner.get('firstname')}</td>*/}
-        {/*<td>{props.owner.get('lastname')}</td>*/}
-        {/*<td>{props.owner.get('email')}</td>*/}
-        {/*<td>{props.privileges(props.owner).map(p => (p + ", "))}</td>*/}
-      {/*</tr>*/}
-      {/*{props.collaborators.map(collaborator => (*/}
-        {/*<tr key={collaborator.get('id')}>*/}
-          {/*<td>{collaborator.get('firstName')}</td>*/}
-          {/*<td>{collaborator.get('lastName')}</td>*/}
-          {/*<td>{collaborator.get('email')}</td>*/}
-          {/*<td>{props.privileges(collaborator).map(p => (p + ", "))}*/}
-            {/*<button className="btn-danger btn-sm float-right">Revoke Access</button>*/}
-          {/*</td>*/}
-        {/*</tr>*/}
-      {/*))}*/}
+      ))}
       </tbody>
     </table>
   </div>
 );
 
-const mapStateToProps = ({BudgetReducer}) => ({
+const mapStateToProps = ({PlanReducer, TransactionReducer}) => {
+  const planId = PlanReducer.get('activePlan');
+  const baseTransactionId = PlanReducer.getIn([ 'plans', planId, 'baseTransaction' ]);
+  const transactions = getTransactions(TransactionReducer, baseTransactionId);
+  return ({
+    planId,
+    baseTid: baseTransactionId,
+    transactions,
+  });
+};
 
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(TransactionActions, dispatch),
 });
 
-export default connect(mapStateToProps)(TransactionView);
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionView);
