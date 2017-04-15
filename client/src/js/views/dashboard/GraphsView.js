@@ -10,19 +10,29 @@ import { Component } from 'react';
 class GraphsView extends Component {
     constructor() {
         super();
-       // const selectedOption = 'PieChart';
-        GraphsView.state = {
-            selectedOption : 'PieChart'
+        this.state = {
+            selectedOption : 'PieChart',
+            selectedFilter : 'Income',
+            data: [
+                ['Income', 'Money'],
+                ['Work', 22200],
+                ['Babysitting', 1000],
+                ['Coding', 3000],
+                ['Other', 5932],
+            ]
         };
         this.onSiteChanged = this.onSiteChanged.bind(this);
+        this.onFilterChanged = this.onFilterChanged.bind(this);
     }
     onSiteChanged(event) {
-        console.log(event.target.value);
-        //this.selectedOption = chart;
         this.setState({
             selectedOption: event.target.value
         });
-        console.log(this);
+    }
+    onFilterChanged(event) {
+        this.setState({
+            selectedFilter: event.target.value,
+        });
     }
 
     render() {
@@ -37,16 +47,16 @@ class GraphsView extends Component {
                     <h3>Type of Graph</h3>
 
                     <div className="radio">
-                        <label><input type="radio" name="optradio" value="BarChart" onChange={this.onSiteChanged}/>Bar Graph</label>
+                        <label><input type="radio" name="optradio" value="BarChart" checked={this.state.selectedOption === 'BarChart'} onChange={this.onSiteChanged}/>Bar Graph</label>
                     </div>
                     <div className="radio">
-                        <label><input type="radio" name="optradio" value="LineChart" onChange={this.onSiteChanged}/>Line Graph</label>
+                        <label><input type="radio" name="optradio" value="LineChart" checked={this.state.selectedOption === 'LineChart'} onChange={this.onSiteChanged}/>Line Graph</label>
                     </div>
                     <div className="radio">
-                        <label><input type="radio" name="optradio" value="PieChart" onChange={this.onSiteChanged}/>PieChart</label>
+                        <label><input type="radio" name="optradio" value="PieChart" checked={this.state.selectedOption === 'PieChart'} onChange={this.onSiteChanged}/>PieChart</label>
                     </div>
                     <div className="radio">
-                        <label><input type="radio" name="optradio" value="ScatterChart" onChange={this.onSiteChanged}/>Scatter Plot</label>
+                        <label><input type="radio" name="optradio" value="ScatterChart" checked={this.state.selectedOption === 'ScatterChart'} onChange={this.onSiteChanged}/>Scatter Plot</label>
                     </div>
 
                     <h3>Filter by Date</h3>
@@ -54,34 +64,27 @@ class GraphsView extends Component {
 
                     <h3>Filter</h3>
                     <div className="radio">
-                        <label><input type="radio" name="radio"/>Income</label>
+                        <label><input type="radio" name="radio" defaultChecked onChange={this.onFilterChanged}/>Income</label>
                     </div>
                     <div className="radio">
-                        <label><input type="radio" name="radio" defaultChecked/>Expenses</label>
-                    </div>
-                    <div id="generateReport">
-                        <button id="genReport" className="btn btn-success">Generate Report</button>
+                        <label><input type="radio" name="radio" onChange={this.onFilterChanged}/>Expenses</label>
                     </div>
                 </div>
 
-                <div className="col-md-9">
+                <div className="col-md-7">
                     <Chart
-                        chartType={this.selectedOption}
-                        data={[
-                            ['Income', 'Money'],
-                            ['Work', 22200],
-                            ['Babysitting', 1000],
-                            ['Coding', 3000],
-                            ['Other', 5932],
-
-                        ]}
+                        chartType={this.state.selectedOption}
+                        data={this.state.data}
                         options={{
                             title: 'My Budget',
                             is3D: true,
                         }}
                         width="100%"
-                        graph_id={this.selectedOption}
+                        graph_id={this.state.selectedOption}
                     />
+                </div>
+                <div id="generateReport" className="col-md-2">
+                    <button id="genReport" className="btn btn-success">Generate Report</button>
                 </div>
             </div>
             </div>
