@@ -6,7 +6,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import * as BudgetActions from '../../actions/BudgetActions';
+import * as PlanActions from '../../actions/PlanActions';
 
 /**
  * Displays the navigation bar at the top of each "dashboard" page.
@@ -25,12 +25,13 @@ const NavigationView = (props) => (
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false">
-              {props.activePlan}
+              {props.planName}
             </a>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              {props.plans.map((plan, id) => (
-                <button className="dropdown-item"
-                        onClick={()=>props.actions.selectPlan(id)}>
+              {props.plans.valueSeq().map((plan) => (
+                <button key={plan.id}
+                        className="dropdown-item"
+                        onClick={()=>props.actions.selectPlan(plan.id)}>
                   {plan.get('name')}
                 </button>
               ))}
@@ -64,14 +65,14 @@ const NavigationView = (props) => (
   </div>
 );
 
-const mapStateToProps = ({BudgetReducer}) => ({
-  activePlan: BudgetReducer.get('plans').get(BudgetReducer.get('activePlan')).get('name'),
-  plans: BudgetReducer.get('plans'),
-  title: BudgetReducer.get('title'),
+const mapStateToProps = ({AppReducer, PlanReducer}) => ({
+  title: AppReducer.get('title'),
+  planName: PlanReducer.getIn([ 'plans', PlanReducer.get('activePlan'), 'name' ]),
+  plans: PlanReducer.get('plans'),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(BudgetActions, dispatch)
+  actions: bindActionCreators(PlanActions, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavigationView);
