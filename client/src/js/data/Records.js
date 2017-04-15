@@ -103,8 +103,10 @@ export const Tag = new Record({
  */
 export const Transaction = new Record({
   id: undefined,
-  next: undefined,
+  date: '',
+  description: '',
   amount: 0,
+  next: undefined,
   category: undefined,
   tags: List( ),
 }, 'Transaction');
