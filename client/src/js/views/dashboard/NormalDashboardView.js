@@ -6,7 +6,7 @@ import React from 'react';
 import { Chart } from 'react-google-charts';
 import DatePicker  from '../../components/DatePicker';
 import { connect } from 'react-redux';
-import { getMostRecentTransactions, toCSV } from '../../data/Utils';
+import { getMostRecentTransactions, toCSV, getGraphData } from '../../data/Utils';
 
 const NormalDashboardView = (props) => (
   <div className="container-fluid">
@@ -28,17 +28,10 @@ const NormalDashboardView = (props) => (
             <div className="row">
               <div className="container">
                 <Chart
-                    chartType="PieChart"
-                    data={[
-                        ['Income', 'Money'],
-                        ['Work', 22200],
-                        ['Babysitting', 1000],
-                        ['Coding', 3000],
-                        ['Other', 5932],
-
-                    ]}
+                    chartType="BarChart"
+                    data={props.graphData}
                     options={{
-                      title: '',
+                      title: props.planName,
                       is3D: true,
                     }}
                     width="100%"
@@ -114,11 +107,13 @@ const mapStateToProps = ({PlanReducer, TransactionReducer}) => {
   const planId = PlanReducer.get('activePlan');
   const plans = PlanReducer.get('plans');
   const baseTransactionId = PlanReducer.getIn([ 'plans', planId, 'baseTransaction' ]);
+  const graphData = getGraphData(TransactionReducer, baseTransactionId);
   const transactions = getMostRecentTransactions(TransactionReducer, baseTransactionId, 3);
   return ({
     planName,
     planId,
     baseTid: baseTransactionId,
+    graphData,
     transactions,
   });
 };
