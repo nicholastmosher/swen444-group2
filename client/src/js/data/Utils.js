@@ -81,3 +81,36 @@ export const entityIterator = (entities, baseEntity) => {
     },
   };
 };
+
+export const getGraphData = (TReducer, baseT) => {
+  return aggregateCategoryData(TReducer, baseT);
+};
+
+//Helper function for getting transaction data as a list of categories and how much
+//is in each category
+export const aggregateCategoryData = (TReducer, baseT) => {
+  let data = [['Category', 'Amount']];
+  let categories = {};
+
+  let t = { next: baseT };
+  while (t = TReducer.getIn([ 'transactions', t.next ])) {
+
+    t = t.set('tags', t.tags.map(tagId => TReducer.getIn([ 'tags', tagId, 'key' ])));
+    t = t.set('category', TReducer.getIn([ 'tags', t.category, 'key' ]));
+
+    if (t.category in categories){
+      categories[t.category] += t.amount;
+    }
+    else {
+      categories[t.category] = t.amount;
+    }
+
+  }
+
+  for (var c in categories){
+    data.push([c, categories[c]]);
+  }
+
+  console.log(data);
+  return data;
+};
