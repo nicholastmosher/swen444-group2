@@ -107,4 +107,4 @@ const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(TransactionActions, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TransactionView);
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionView);;
