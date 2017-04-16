@@ -45,7 +45,7 @@ const NavigationView = (props) => (
           <NavLink to="/dashboard/transactions" activeClassName="active">Transactions</NavLink>
         </li>
         <li className="nav-inline-item">
-          <NavLink to="/dashboard/graphs" activeClassName="active">Graphs</NavLink>
+          <NavLink to="/dashboard/graphs" activeClassName="active">Graphs and Reports</NavLink>
         </li>
         <li className="nav-inline-item">
           <NavLink to="/dashboard/collaborators" activeClassName="active">Collaborators</NavLink>

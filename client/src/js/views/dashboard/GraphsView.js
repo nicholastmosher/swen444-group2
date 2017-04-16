@@ -3,56 +3,119 @@
  * @author Adam Audycki <apa7395@rit.edu>
  */
 import React from 'react';
+import DatePicker  from '../../components/DatePicker';
+import { Chart } from 'react-google-charts';
+import { Component } from 'react';
 
-const GraphsView = (props) => (
-  <div className="mainView">
-    <h1>Graphs and Reports</h1>
-    <div id="config_sidebar" className="sidebar box">
-        <h2>Graph Configurations</h2>
-        <h3>Type of Graph</h3>
-        <div className="radio">
-            <label><input type="radio" name="optradio"/>Bar Graph</label>
-        </div>
-        <div className="radio">
-            <label><input type="radio" name="optradio"/>Line Graph</label>
-        </div>
-        <div className="radio">
-            <label><input type="radio" name="optradio"/>Pie Chart</label>
-        </div>
-        <div className="radio">
-            <label><input type="radio" name="optradio"/>Scatter Plot</label>
-        </div>
+class GraphsView extends Component {
+    constructor() {
+        super();
+        this.state = {
+            selectedOption : 'PieChart',
+            selectedFilter : 'Income',
+            data: [
+                ['Income', 'Money'],
+                ['Work', 22200],
+                ['Babysitting', 1000],
+                ['Coding', 3000],
+                ['Other', 5932],
+            ]
+        };
+        this.onSiteChanged = this.onSiteChanged.bind(this);
+        this.onFilterChanged = this.onFilterChanged.bind(this);
+    }
 
-        <h3>Filter by Date</h3>
-            <input type="text" name="startDate" placeholder="MM/DD/YYYY"/><br/>
-            <input type="text" name="endDate" placeholder="MM/DD/YYYY"/><br/>
+    //This is triggered when one of the Type of Graph radio buttons are clicked.
+    onSiteChanged(event) {
+        this.setState({
+            selectedOption: event.target.value
+        });
+    }
 
-        <h3>Filter</h3>
-        <div className="radio">
-            <label><input type="radio" name="optradio"/>Income</label>
-        </div>
-        <div className="radio">
-            <label><input type="radio" name="optradio" defaultChecked/>Expenses</label>
-        </div>
-        <div id="generateReport">
-            <button id="genReport" className="btn btn-success">Generate Report</button>
-        </div>
-    </div>
+    //Can retrieve the data here. The data just needs to be build up into either one of those conditionals.
+    //This is triggered when one of the Filter radio buttons are clicked.
+    //This is where the filter by data stuff could also be added.
+    onFilterChanged(event) {
+        var data;
+        if(event.target.value == 'Income'){
+            data = [
+                ['Income', 'Money'],
+                ['Work', 22200],
+                ['Babysitting', 1000],
+                ['Coding', 3000],
+                ['Other', 5932],
+            ];
+        }
+        else if(event.target.value == 'Expenses'){
+            data = [
+                ['Expenses', 'Money'],
+                ['Food', 30000],
+                ['Gas', 500],
+                ['Utilities', 2500],
+                ['Other', 1000],
+            ]
+        }
+        this.setState({
+            selectedFilter: event.target.value,
+            data: data
+        });
+    }
 
-    <div id="graph">
-      <img src={'https://docs.oracle.com/javase/8/javafx/user-interface-tutorial/img/pie-sample.png'}/>
-    </div>
+    render() {
+        return (
 
-    <div id="graphKey" className="box">
-        <ul className="list-group">
-            <li className="list-group-item color1">Food</li>
-            <li className="list-group-item color2">Gas</li>
-            <li className="list-group-item color3">Car Payment</li>
-            <li className="list-group-item color4">College Payment</li>
-            <li className="list-group-item color5">Utilities</li>
-        </ul>
-    </div>
-  </div>
-);
+            <div className="container-fluid">
+                <h1>Graphs and Reports</h1>
+                <div className="row">
+
+                    <div id="config_sidebar" className="col-md-3 sidebar">
+                        <h2>Graph Configurations</h2>
+                        <h3>Type of Graph</h3>
+
+                        <div className="radio">
+                            <label><input type="radio" name="chartRadio" value="BarChart" checked={this.state.selectedOption === 'BarChart'} onChange={this.onSiteChanged}/>Bar Graph</label>
+                        </div>
+                        <div className="radio">
+                            <label><input type="radio" name="chartRadio" value="LineChart" checked={this.state.selectedOption === 'LineChart'} onChange={this.onSiteChanged}/>Line Graph</label>
+                        </div>
+                        <div className="radio">
+                            <label><input type="radio" name="chartRadio" value="PieChart" checked={this.state.selectedOption === 'PieChart'} onChange={this.onSiteChanged}/>PieChart</label>
+                        </div>
+                        <div className="radio">
+                            <label><input type="radio" name="chartRadio" value="ScatterChart" checked={this.state.selectedOption === 'ScatterChart'} onChange={this.onSiteChanged}/>Scatter Plot</label>
+                        </div>
+
+                        <h3>Filter by Date</h3>
+                        <DatePicker />
+
+                        <h3>Filter</h3>
+                        <div className="radio">
+                            <label><input type="radio" name="filterRadio" value="Income" defaultChecked onChange={this.onFilterChanged}/>Income</label>
+                        </div>
+                        <div className="radio">
+                            <label><input type="radio" name="filterRadio" value="Expenses" onChange={this.onFilterChanged}/>Expenses</label>
+                        </div>
+                    </div>
+
+                    <div className="col-md-7">
+                        <Chart
+                            chartType={this.state.selectedOption}
+                            data={this.state.data}
+                            options={{
+                                title: 'My Budget',
+                                is3D: true,
+                            }}
+                            width="100%"
+                            graph_id={this.state.selectedOption}
+                        />
+                    </div>
+                    <div id="generateReport" className="col-md-2">
+                        <button id="genReport" className="btn btn-success">Generate Report</button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
 
 export default GraphsView;

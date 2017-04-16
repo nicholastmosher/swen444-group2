@@ -8,7 +8,6 @@ import DatePicker  from '../../components/DatePicker';
 import { connect } from 'react-redux';
 import { getMostRecentTransactions, toCSV } from '../../data/Utils';
 
-
 const NormalDashboardView = (props) => (
   <div className="container-fluid">
     <br/>
