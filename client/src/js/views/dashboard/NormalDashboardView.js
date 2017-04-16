@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { Chart } from 'react-google-charts';
-import DatePicker  from '../../Components/DatePicker';
+import DatePicker  from '../../components/DatePicker';
 import { connect } from 'react-redux';
 import { getMostRecentTransactions, toCSV } from '../../data/Utils';
 
