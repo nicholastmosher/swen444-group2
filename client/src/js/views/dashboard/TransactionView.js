@@ -57,12 +57,12 @@ const TransactionView = (props) => (
     </div>
     <div className="row add-transactions">
         <div className="col-md-6">
-            <table className="table table-striped">
+            <table className="table table-hover">
               <thead>
               <tr>
                 <th className="th">Date</th>
                 <th className="th">Amount</th>
-                <th className="th">ID</th>
+                <th className="th">Balance</th>
               </tr>
               </thead>
               <tbody>
@@ -70,7 +70,7 @@ const TransactionView = (props) => (
               <tr key={t.id}>
                 <td>{t.date}</td>
                 <td>{(t.amount > 0 ? ('+' + t.amount) : t.amount)}</td>
-                <td>ID</td>
+                <td>{amount}</td>
               </tr>
               ))}
               </tbody>
