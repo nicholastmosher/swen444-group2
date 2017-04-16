@@ -12,6 +12,7 @@ import { OrderedMap } from 'immutable';
  * @returns {*|OrderedMap<K, V>|OrderedMap<string, V>}
  */
 export const getTransactions = (TReducer, baseT) => {
+
   let transactions = OrderedMap( );
   let p, t = { next: baseT };
   while (t = TReducer.getIn([ 'transactions', t.next ])) {
@@ -22,6 +23,14 @@ export const getTransactions = (TReducer, baseT) => {
   }
   return transactions;
 };
+
+export const getMostRecentTransactions = (TReducer, baseT, count) => {
+
+  let AllTransactions = getTransactions(TReducer, baseT);
+  return AllTransactions.reverse().slice(0, count);
+
+};
+
 
 /**
  * Given a sequence of string-appendable items, returns a string.
