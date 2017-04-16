@@ -24,11 +24,11 @@ export const getTransactions = (TReducer, baseT) => {
   return transactions;
 };
 
-export const getMostRecentTransactions = (TReducer, baseT) => {
-  var TransactionCount = 3;
+export const getMostRecentTransactions = (TReducer, baseT, count) => {
 
   let AllTransactions = getTransactions(TReducer, baseT);
-  return AllTransactions.reverse().slice(0, TransactionCount);
+  return AllTransactions.reverse().slice(0, count);
+
 };
 
 

@@ -29,7 +29,7 @@ const NormalDashboardView = (props) => (
             <div className="row">
               <div className="container">
                 <Chart
-                    chartType="ScatterChart"
+                    chartType="PieChart"
                     data={[
                         ['Income', 'Money'],
                         ['Work', 22200],
@@ -39,7 +39,7 @@ const NormalDashboardView = (props) => (
 
                     ]}
                     options={{
-                      title: 'My Budget',
+                      title: '',
                       is3D: true,
                     }}
                     width="100%"
@@ -115,7 +115,7 @@ const mapStateToProps = ({PlanReducer, TransactionReducer}) => {
   const planId = PlanReducer.get('activePlan');
   const plans = PlanReducer.get('plans');
   const baseTransactionId = PlanReducer.getIn([ 'plans', planId, 'baseTransaction' ]);
-  const transactions = getMostRecentTransactions(TransactionReducer, baseTransactionId);
+  const transactions = getMostRecentTransactions(TransactionReducer, baseTransactionId, 3);
   return ({
     planName,
     planId,
