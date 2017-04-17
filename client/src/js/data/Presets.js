@@ -11,11 +11,13 @@ export const application = fromJS({
 });
 
 export const users = fromJS({
-  account: Account({
-    id: 0,
-    user: 0,
-    password: 'password12345',
-  }),
+  accounts: {
+    '0': Account({
+      id: '0',
+      user: '0',
+      password: 'password12345',
+    }),
+  },
   users: {
     '0': User({
       id: '0',
