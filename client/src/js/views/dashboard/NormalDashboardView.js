@@ -84,6 +84,19 @@ const NormalDashboardView = (props) => (
         <div className="col-md-5">
           <div className="row row-inner">
             <div className="container">
+              <h3>Budget Snapshot</h3>
+              <div className="progress">
+                <div className="progress-bar snapshot-bar-income" role="progressbar" style={{width: props.snapshotWidth}}>
+                  ${props.amountOfBudget} of ${props.income}
+                </div>
+                <div className="progress-bar snapshot-bar-remaining" role="progressbar" style={{width: props.remainingWidth}}>
+                  ${props.net} remaining
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="row row-inner">
+            <div className="container">
               <h3>Balance</h3>
               <ul className="list-group">
                 <li className="list-group-item income-color">Income: {props.income}</li>
@@ -131,9 +144,15 @@ const mapStateToProps = ({PlanReducer, TransactionReducer}) => {
   const planId = PlanReducer.get('activePlan');
   const plans = PlanReducer.get('plans');
   const baseTransactionId = PlanReducer.getIn([ 'plans', planId, 'baseTransaction' ]);
+
   const graphData = getGraphData(TransactionReducer, baseTransactionId);
   const balanceData = getBalanceData(TransactionReducer, baseTransactionId);
   const transactions = getMostRecentTransactions(TransactionReducer, baseTransactionId, 3);
+
+  const snapshotWidth = ((balanceData.Expense/(balanceData.Income + Math.abs(balanceData.Expense))) * 100).toString() + "%";
+  const remainingWidth = (100 - ((balanceData.Expense/(balanceData.Income + Math.abs(balanceData.Expense))) * 100)).toString() + "%";
+  const amountOfBudget = Math.abs(balanceData.Expense);
+
   return ({
     planName,
     planId,
@@ -143,6 +162,9 @@ const mapStateToProps = ({PlanReducer, TransactionReducer}) => {
     expenses: balanceData.Expense,
     net: balanceData.Net,
     transactions,
+    snapshotWidth,
+    remainingWidth,
+    amountOfBudget,
   });
 };
 
