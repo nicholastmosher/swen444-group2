@@ -7,49 +7,58 @@ import { connect } from 'react-redux';
 import { toCSV } from '../../data/Utils';
 
 const CollaboratorsView = (props) => (
-  <div className="container-fluid">
-    <div className="row add-collaborators">
-      <h3 className="col-md-2">Add Collaborators</h3>
-      <div id="custom-search-input">
-        <div className="input-group">
-          <input type="text" className="search-query form-control" placeholder="Collaborator Email"/>
-          <span className="input-group-btn">
-            <button className="btn btn-success" type="button">
-              <span className="glyphicon glyphicon-search">Add User</span>
-            </button>
-          </span>
+    <div className="row">
+      <div className="col-md-1"></div>
+      <div className="col-md-10">
+        <div className="container-fluid">
+          <div className="row add-collaborators">
+            <h3 className="col-md-2">Collaborators</h3>
+            <div className="col-md-7"></div>
+            <div className="col-md-3">
+            <div id="custom-search-input">
+              <div className="input-group">
+                <input type="text" className="search-query form-control" placeholder="Collaborator Email"/>
+                <span className="input-group-btn">
+                <button className="btn btn-success" type="button">
+                  <span className="glyphicon glyphicon-search">Add User</span>
+                </button>
+                </span>
+              </div>
+            </div>
+            </div>
+          </div>
+          <table className="table table-striped">
+            <thead>
+            <tr>
+              <th className="th">First Name</th>
+              <th className="th">Last Name</th>
+              <th className="th">Email</th>
+              <th className="th">Access Privileges</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>{props.owner.get('firstName')}</td>
+              <td>{props.owner.get('lastName')}</td>
+              <td>{props.owner.get('email')}</td>
+              <td>{toCSV(props.privileges(props.owner).toSeq())}</td>
+            </tr>
+            {props.collaborators.map(collaborator => (
+                <tr key={collaborator.get('id')}>
+                  <td>{collaborator.get('firstName')}</td>
+                  <td>{collaborator.get('lastName')}</td>
+                  <td>{collaborator.get('email')}</td>
+                  <td>{toCSV(props.privileges(collaborator).toSeq())}
+                    <button className="btn-danger btn-sm float-right">Revoke Access</button>
+                  </td>
+                </tr>
+            ))}
+            </tbody>
+          </table>
         </div>
+        <div className="col-md-1"></div>
       </div>
     </div>
-    <table className="table table-striped">
-      <thead>
-      <tr>
-        <th className="th">First Name</th>
-        <th className="th">Last Name</th>
-        <th className="th">Email</th>
-        <th className="th">Access Privileges</th>
-      </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{props.owner.get('firstName')}</td>
-          <td>{props.owner.get('lastName')}</td>
-          <td>{props.owner.get('email')}</td>
-          <td>{toCSV(props.privileges(props.owner).toSeq())}</td>
-        </tr>
-      {props.collaborators.map(collaborator => (
-        <tr key={collaborator.get('id')}>
-          <td>{collaborator.get('firstName')}</td>
-          <td>{collaborator.get('lastName')}</td>
-          <td>{collaborator.get('email')}</td>
-          <td>{toCSV(props.privileges(collaborator).toSeq())}
-          <button className="btn-danger btn-sm float-right">Revoke Access</button>
-          </td>
-        </tr>
-      ))}
-      </tbody>
-    </table>
-  </div>
 );
 
 const mapStateToProps = ({PlanReducer, UserReducer}) => {
