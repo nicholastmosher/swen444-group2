@@ -110,7 +110,7 @@ export const aggregateCategoryData = (TReducer, baseT) => {
   for (var c in categories){
     data.push([c, categories[c]]);
   }
-
+  
   return data;
 };
 

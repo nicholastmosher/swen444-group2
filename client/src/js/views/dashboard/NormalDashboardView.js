@@ -8,6 +8,7 @@ import DatePicker  from '../../components/DatePicker';
 import { connect } from 'react-redux';
 import { getMostRecentTransactions, getGraphData, getBalanceData } from '../../data/Utils';
 
+
 const NormalDashboardView = (props) => (
   <div className="container-fluid">
       <div className="row row-header">
@@ -138,7 +139,6 @@ const mapStateToProps = ({PlanReducer, TransactionReducer}) => {
     graphData,
     income: balanceData.Income,
     expenses: balanceData.Expense,
-    net: balanceData.Net,
     transactions,
   });
 };
