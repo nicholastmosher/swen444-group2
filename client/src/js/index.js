@@ -5,7 +5,8 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createHashHistory';
-import { Route, Redirect } from 'react-router';
+import { Route } from 'react-router';
+import RedirectIf from './components/RedirectIf';
 import { ConnectedRouter } from 'react-router-redux';
 import configureStore from './store/configureStore';
 import AuthContainer from './containers/AuthContainer';
@@ -20,8 +21,12 @@ render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <div>
-        <Route exact path="/" component={MoneyMaidContainer}/>
-        <Route path="/auth" component={AuthContainer}/>
+        <RedirectIf condition={store.getState().AppReducer.get('userLoggedIn')} from="/" to="/dashboard">
+          <Route exact path="/" component={MoneyMaidContainer} />
+        </RedirectIf>
+        <RedirectIf condition={store.getState().AppReducer.get('userLoggedIn')} from="/auth" to="/dashboard">
+          <Route path="/auth" component={AuthContainer} />
+        </RedirectIf>
         <Route path="/dashboard" component={DashboardContainer}/>
       </div>
     </ConnectedRouter>
