@@ -139,6 +139,7 @@ const mapStateToProps = ({PlanReducer, TransactionReducer}) => {
     graphData,
     income: balanceData.Income,
     expenses: balanceData.Expense,
+    net: balanceData.Net,
     transactions,
   });
 };
