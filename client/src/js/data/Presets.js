@@ -180,6 +180,8 @@ export const transactions = fromJS({
     }),
     '3': Transaction({
       id: '3',
+      date: '03/05/17',
+      description: 'Made a lot of cash money',
       amount: 10000.99,
       category: '4',
       tags: List([ ]),
