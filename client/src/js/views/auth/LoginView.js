@@ -89,7 +89,7 @@ class LoginView extends Component {
           {this.passwordFeedback()}
         </div>
         <button className="login-button button-round"
-                onClick={() => this.props.push}>Login</button>
+                onClick={() => this.props.push()}>Login</button>
       </div>
     );
   }
@@ -115,7 +115,7 @@ const mapStateToProps = ({AppReducer}) => {
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(AppActions, dispatch),
-  push: () => dispatch(push('/dashboard')),
+  push: () => dispatch(push('/dashboard'))
 });
 
-export default connect(mapDispatchToProps)(LoginView);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginView);
