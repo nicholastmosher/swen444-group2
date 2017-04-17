@@ -10,19 +10,41 @@ import { getMostRecentTransactions, toCSV, getGraphData } from '../../data/Utils
 
 const NormalDashboardView = (props) => (
   <div className="container-fluid">
-    <br/>
-      <div className="row">
-        <div className="col-md-12">
-          <h1 className="jumbotron-fluid">{props.planName} Dashboard</h1>
+      <div className="row row-header">
+        <div className="col-md-1"></div>
+          <h2 className="col-md-8">Current Plan: {props.planName}</h2>
+        <div className="col-md-2 text-right">
+        <button type="button" className="btn btn-danger delete-button" data-toggle="modal" data-target="#deletePlan">
+          Delete Financial Plan
+        </button>
         </div>
-        <div>
-          <button className="btn delete-button" type="button">Delete Plan</button>
+        <div className="modal fade" id="deletePlan">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">Delete Financial Plan</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <p>Are you sure you want to delete the following plan?</p>
+                <p><strong>{props.planName}</strong></p>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-primary" data-dismiss="modal">Confirm Deletion</button>
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel Deletion</button>
+              </div>
+            </div>
+          </div>
         </div>
+        <div className="col-md-1"></div>
       </div>
-      <div className="row">
-        <div className="col-md-6">
+      <div className="row row-inner">
+        <div className="col-md-1"></div>
+        <div className="col-md-5">
           <div className="container">
-            <div className="row container">
+            <div className="row container row-inner">
               <h3>Summary</h3>
             </div>
             <div className="row">
@@ -40,24 +62,24 @@ const NormalDashboardView = (props) => (
               </div>
             </div>
             <div className="row container date-picker-container">
-              <div className="col-md-6">
+              <div className="col-md-5">
                 <DatePicker />
               </div>
             </div>
             <br/>
-            <div className="row">
+            <div className="row row-inner">
               <div className="container">
                 <h3>Collaborator Updates</h3>
                 <ul className="list-group">
-                  <li className="list-group-item">Wife: </li>
-                  <li className="list-group-item">No Wife: </li>
+                  <li className="list-group-item">Collaborator 1: </li>
+                  <li className="list-group-item">Collaborator 2: </li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
-        <div className="col-md-6">
-          <div className="row">
+        <div className="col-md-5">
+          <div className="row row-inner">
             <div className="container">
               <h3>Balance</h3>
               <ul className="list-group">
@@ -68,7 +90,7 @@ const NormalDashboardView = (props) => (
             </div>
           </div>
           <br/>
-          <div className="row">
+          <div className="row row-inner">
             <div className="container">
               <h3>Recent Transactions</h3>
               <table className="table table-striped table-bordered">
@@ -98,6 +120,7 @@ const NormalDashboardView = (props) => (
             </div>
           </div>
         </div>
+        <div className="col-md-1"></div>
       </div>
   </div>
 );

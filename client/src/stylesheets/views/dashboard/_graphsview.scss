@@ -2,6 +2,25 @@
   spadding: 10px;
 }
 
+.verticalLine {
+  border-right: thin solid #adb2ba;
+}
+
+.horizontalLine {
+  margin-top: 14px;
+  border-top: thin solid #adb2ba;
+  margin-bottom: 14px;
+}
+
+.topMargin {
+  margin-top: 14px;
+}
+
+.graph-border {
+  border-width:5px;
+  border-style:inset;
+}
+
 .sidebar{
   border-style: solid;
   overflow-x: hidden;
@@ -16,6 +35,10 @@
   background-color: #4caf50;
   border-radius: 3px;
   font-size: large;
+}
+
+.option-config{
+  margin-top: 16px;
 }
 
 .sidebar h2 {
