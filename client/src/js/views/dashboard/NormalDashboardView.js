@@ -6,7 +6,7 @@ import React from 'react';
 import { Chart } from 'react-google-charts';
 import DatePicker  from '../../components/DatePicker';
 import { connect } from 'react-redux';
-import { getMostRecentTransactions, toCSV, getGraphData } from '../../data/Utils';
+import { getMostRecentTransactions, getGraphData, getBalanceData } from '../../data/Utils';
 
 const NormalDashboardView = (props) => (
   <div className="container-fluid">
@@ -83,9 +83,9 @@ const NormalDashboardView = (props) => (
             <div className="container">
               <h3>Balance</h3>
               <ul className="list-group">
-                <li className="list-group-item income-color">Income: </li>
-                <li className="list-group-item expense-color">Expenses: </li>
-                <li className="list-group-item">Net: </li>
+                <li className="list-group-item income-color">Income: {props.income}</li>
+                <li className="list-group-item expense-color">Expenses: {props.expenses}</li>
+                <li className="list-group-item">Net: {props.net}</li>
               </ul>
             </div>
           </div>
@@ -93,15 +93,14 @@ const NormalDashboardView = (props) => (
           <div className="row row-inner">
             <div className="container">
               <h3>Recent Transactions</h3>
-              <table className="table table-striped table-bordered">
+              <table className="table table-striped">
                 <thead>
                 <tr>
                   <th className="th">Date</th>
                   <th className="th">Description</th>
                   <th className="th">Amount</th>
-                  <th className="th">Remaining Balance</th>
+                  <th className="th">Balance</th>
                   <th className="th">Category</th>
-                  <th className="th">Tags</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -112,7 +111,6 @@ const NormalDashboardView = (props) => (
                       <td>{(t.amount > 0 ? ('+' + t.amount) : t.amount)}</td>
                       <td>{amount}</td>
                       <td>{t.category}</td>
-                      <td>{toCSV(t.tags.toSeq())}</td>
                     </tr>
                 ))}
                 </tbody>
@@ -131,12 +129,16 @@ const mapStateToProps = ({PlanReducer, TransactionReducer}) => {
   const plans = PlanReducer.get('plans');
   const baseTransactionId = PlanReducer.getIn([ 'plans', planId, 'baseTransaction' ]);
   const graphData = getGraphData(TransactionReducer, baseTransactionId);
+  const balanceData = getBalanceData(TransactionReducer, baseTransactionId);
   const transactions = getMostRecentTransactions(TransactionReducer, baseTransactionId, 3);
   return ({
     planName,
     planId,
     baseTid: baseTransactionId,
     graphData,
+    income: balanceData.Income,
+    expenses: balanceData.Expense,
+    net: balanceData.Net,
     transactions,
   });
 };

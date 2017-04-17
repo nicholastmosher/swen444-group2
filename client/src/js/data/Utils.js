@@ -111,6 +111,27 @@ export const aggregateCategoryData = (TReducer, baseT) => {
     data.push([c, categories[c]]);
   }
 
-  console.log(data);
+  return data;
+};
+
+export const getBalanceData = (TReducer, baseT) => {
+  let data = { 'Income': 0, 'Expense': 0 };
+
+  let t = { next: baseT };
+  while (t = TReducer.getIn([ 'transactions', t.next ])) {
+
+    if (t.amount > 0) {
+      data.Income += t.amount;
+    }
+    else {
+      // EXPENSES WILL ALWAYS BE NEGATIVE VALUES
+      data.Expense += t.amount;
+    }
+
+    //finally calculate net
+    data['Net'] = data.Income + data.Expense;
+
+  }
+
   return data;
 };
