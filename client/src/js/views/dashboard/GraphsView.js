@@ -63,49 +63,82 @@ class GraphsView extends Component {
 
   render() {
     return (
-
         <div className="container-fluid">
-          <h1>Graphs and Reports</h1>
-          <div className="row">
+          <div className="row row-header">
+            <div className="col-md-1"></div>
+            <h2 className="col-md-2">Graphs and Reports</h2>
+            <div className="col-md-9"></div>
+          </div>
+          <div className="row row-inner">
+            <div className="col-md-1"></div>
+            <div id="config_sidebar" className="col-md-2 verticalLine">
+              <h3>Graph Configurations</h3>
+              <h4 className="option-config">Type of Graph</h4>
 
-            <div id="config_sidebar" className="col-md-3 sidebar">
-              <h2>Graph Configurations</h2>
-              <h3>Type of Graph</h3>
+              <div className="radio">
+                <label>
+                  <input type="radio" name="chartRadio" value="BarChart"
+                         checked={this.state.selectedOption === 'BarChart'} onChange={this.onSiteChanged}/>
+                  &nbsp;Bar Graph
+                </label>
+              </div>
+              <div className="radio">
+                <label>
+                  <input type="radio" name="chartRadio" value="LineChart"
+                         checked={this.state.selectedOption === 'LineChart'} onChange={this.onSiteChanged}/>
+                  &nbsp;Line Graph
+                </label>
+              </div>
+              <div className="radio">
+                <label>
+                  <input type="radio" name="chartRadio" value="PieChart"
+                         checked={this.state.selectedOption === 'PieChart'} onChange={this.onSiteChanged}/>
+                  &nbsp;Pie Chart
+                </label>
+              </div>
+              <div className="radio">
+                <label>
+                  <input type="radio" name="chartRadio" value="ScatterChart"
+                         checked={this.state.selectedOption === 'ScatterChart'} onChange={this.onSiteChanged}/>
+                  &nbsp;Scatter Plot
+                </label>
+              </div>
 
-              <div className="radio">
-                <label><input type="radio" name="chartRadio" value="BarChart"
-                              checked={this.state.selectedOption === 'BarChart'} onChange={this.onSiteChanged}/>Bar
-                  Graph</label>
-              </div>
-              <div className="radio">
-                <label><input type="radio" name="chartRadio" value="LineChart"
-                              checked={this.state.selectedOption === 'LineChart'} onChange={this.onSiteChanged}/>Line
-                  Graph</label>
-              </div>
-              <div className="radio">
-                <label><input type="radio" name="chartRadio" value="PieChart"
-                              checked={this.state.selectedOption === 'PieChart'} onChange={this.onSiteChanged}/>PieChart</label>
-              </div>
-              <div className="radio">
-                <label><input type="radio" name="chartRadio" value="ScatterChart"
-                              checked={this.state.selectedOption === 'ScatterChart'} onChange={this.onSiteChanged}/>Scatter
-                  Plot</label>
-              </div>
-
-              <h3>Filter by Date</h3>
+              <h4 className="option-config">Filter by Date</h4>
               <DatePicker />
 
-              <h3>Filter</h3>
+              <h4 className="option-config">Filter by Category</h4>
               <div className="radio">
-                <label><input type="radio" name="filterRadio" value="Income" defaultChecked
-                              onChange={this.onFilterChanged}/>Income</label>
+                <label>
+                  <input type="radio" name="filterRadio" value="Income" defaultChecked
+                         onChange={this.onFilterChanged}/>
+                  &nbsp;Income
+                </label>
               </div>
               <div className="radio">
-                <label><input type="radio" name="filterRadio" value="Expenses" onChange={this.onFilterChanged}/>Expenses</label>
+                <label>
+                  <input type="radio" name="filterRadio" value="Expenses" onChange={this.onFilterChanged}/>
+                  &nbsp;Expenses
+                </label>
               </div>
+              <h4 className="option-config">Filter by Tags</h4>
+              <label>
+                <input type="checkbox" name="vehicle" value="Bike"/>
+                &nbsp;Tag 1
+              </label><br/>
+              <label>
+                <input type="checkbox" name="vehicle" value="Bike"/>
+                &nbsp;Tag 2
+              </label><br/>
+              <label>
+                <input type="checkbox" name="vehicle" value="Bike"/>
+                &nbsp;Tag 3
+              </label><br/>
             </div>
+            <div className="col-md-1"></div>
 
             <div className="col-md-7">
+              <div className="graph-border">
               <Chart
                   chartType={this.state.selectedOption}
                   data={this.state.data}
@@ -116,31 +149,42 @@ class GraphsView extends Component {
                   width="100%"
                   graph_id={this.state.selectedOption}
               />
-            </div>
-            <div id="generateReport" className="col-md-2">
-              <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#reportModal">
-                Launch demo modal
-              </button>
-              <div className="modal fade" id="reportModal">
-                <div className="modal-dialog" role="document">
-                  <div className="modal-content">
-                    <div className="modal-header">
-                      <h5 className="modal-title" id="exampleModalLabel">Generate a Report</h5>
-                      <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div className="modal-body">
-                      <p>Report Content</p>
-                    </div>
-                    <div className="modal-footer">
-                      <button type="button" className="btn btn-primary">Save changes</button>
-                      <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+              <div className="col-md-12">
+              <div className="row row-inner">
+                <div id="generateReport" className="col-md-12 row-inner text-right">
+                  <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#reportModal">
+                    Generate a Report
+                  </button>
+                  <div className="modal fade" id="reportModal">
+                    <div className="modal-dialog" role="document">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <h5 className="modal-title" id="exampleModalLabel">Generate a Report</h5>
+                          <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div className="modal-body">
+                          <p>Report Content</p>
+                        </div>
+                        <div className="modal-footer">
+                          <button type="button" className="btn btn-primary" data-dismiss="modal">Print Report</button>
+                          <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+                <div className="row horizontalLine">
+                  <div className="col-md-12 topMargin">
+                    <h3>Budget Progress Bars</h3>
+                  </div>
+                </div>
+              </div>
             </div>
+            <div className="col-md-1"></div>
           </div>
         </div>
     );

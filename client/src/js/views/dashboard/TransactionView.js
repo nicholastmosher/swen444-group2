@@ -12,7 +12,7 @@ const TransactionView = (props) => (
     <div className="container-fluid">
       <div className="row add-transactions">
         <div className="col-md-1"></div>
-        <h3 className="col-md-2">Transactions</h3>
+        <h2 className="col-md-2">Transactions</h2>
         <div className="col-md-6"></div>
         <div className="col-md-2 text-right">
           <button type="button" className="btn btn-success" data-toggle="modal" data-target="#addTransaction">

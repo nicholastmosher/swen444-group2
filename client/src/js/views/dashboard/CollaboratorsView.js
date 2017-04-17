@@ -12,7 +12,7 @@ const CollaboratorsView = (props) => (
       <div className="col-md-10">
         <div className="container-fluid">
           <div className="row add-collaborators">
-            <h3 className="col-md-2">Collaborators</h3>
+            <h2 className="col-md-2">Collaborators</h2>
             <div className="col-md-7"></div>
             <div className="col-md-3">
             <div id="custom-search-input">
@@ -56,8 +56,8 @@ const CollaboratorsView = (props) => (
             </tbody>
           </table>
         </div>
-        <div className="col-md-1"></div>
       </div>
+      <div className="col-md-1"></div>
     </div>
 );
 
