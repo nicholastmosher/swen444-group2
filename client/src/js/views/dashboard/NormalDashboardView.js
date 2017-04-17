@@ -6,7 +6,9 @@ import React from 'react';
 import { Chart } from 'react-google-charts';
 import DatePicker  from '../../components/DatePicker';
 import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
 import { getMostRecentTransactions, getGraphData, getBalanceData } from '../../data/Utils';
+import * as PlanActions from '../../actions/PlanActions';
 
 
 const NormalDashboardView = (props) => (
@@ -144,4 +146,8 @@ const mapStateToProps = ({PlanReducer, TransactionReducer}) => {
   });
 };
 
-export default connect(mapStateToProps)(NormalDashboardView);
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(PlanActions, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NormalDashboardView);
