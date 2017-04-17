@@ -23,6 +23,13 @@ export const getTransactions = (TReducer, baseT) => {
   return transactions;
 };
 
+export const getMostRecentTransactions = (TReducer, baseT, count) => {
+
+  let AllTransactions = getTransactions(TReducer, baseT);
+  return AllTransactions.reverse().slice(0, count);
+
+};
+
 /**
  * Given a sequence of string-appendable items, returns a string.
  * @param sequence The sequence to transform into comma-separated.
