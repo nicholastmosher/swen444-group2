@@ -113,6 +113,14 @@ class GraphsView extends Component {
                         <button id="genReport" className="btn btn-success">Generate Report</button>
                     </div>
                 </div>
+                <div className="row">
+                    <div id="empty" className="col-md-3">
+                    </div>
+                    <div id="basic_plan_data"className="col-md-9">
+                        <p>Stuff will go here eventually.</p>
+                        <p>This would be some user information I think.</p>
+                    </div>
+                </div>
             </div>
         );
     }
