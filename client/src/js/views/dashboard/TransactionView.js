@@ -12,7 +12,7 @@ const TransactionView = (props) => {
     <div className="container-fluid">
       <div className="row add-transactions">
         <div className="col-md-1"></div>
-        <h3 className="col-md-2">Transactions</h3>
+        <h2 className="col-md-2">Transactions</h2>
         <div className="col-md-6"></div>
         <div className="col-md-2 text-right">
           <button className="btn btn-success"
@@ -46,19 +46,19 @@ const TransactionView = (props) => {
             </tbody>
           </table>
         </div>
-      </div>
-      <div className="col-md-6">
-        <div className="container">
-          <h3>Selected Transaction</h3>
-          <ul className="list-group">
-            <li className="list-group-item">ID:</li>
-            <li className="list-group-item">Date:</li>
-            <li className="list-group-item">Amount:</li>
-            <li className="list-group-item">Category:</li>
-            <li className="list-group-item">Tags:</li>
-          </ul>
+        <div className="col-md-5">
+          <div className="container">
+            <h3>Selected Transaction</h3>
+            <ul className="list-group">
+              <li className="list-group-item">ID:</li>
+              <li className="list-group-item">Date:</li>
+              <li className="list-group-item">Amount:</li>
+              <li className="list-group-item">Category:</li>
+              <li className="list-group-item">Tags:</li>
+            </ul>
+          </div>
+          <div className="col-md-1"></div>
         </div>
-        <div className="col-md-1"></div>
       </div>
       <AddTransactionModal modalId={tModal} baseTid={props.baseTid}/>
     </div>
