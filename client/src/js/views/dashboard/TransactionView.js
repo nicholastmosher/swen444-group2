@@ -9,13 +9,23 @@ import AddTransactionModal from './AddTransactionModal';
 class TransactionView extends Component {
   constructor() {
     super();
-  }
+  };
 
-  componentWillMount() {
+  componentWillMount = () => {
     this.state = {
+      planId: this.props.planId,
       selectedTid: this.props.baseTid,
     };
-  }
+  };
+
+  componentWillReceiveProps = (props) => {
+    if (this.state.planId !== props.planId) {
+      this.setState(state => ({
+        planId: props.planId,
+        selectedTid: props.baseTid,
+      }))
+    }
+  };
 
   selectTransaction = (id) => {
     if (!id) return;
@@ -109,9 +119,7 @@ const mapStateToProps = ({PlanReducer, TransactionReducer}) => {
     planId,
     baseTid: baseTransactionId,
     transactions,
-    tById: (id) => {
-      return transactions.findKey((v, k) => k.id === id);
-    }
+    tById: (id) => transactions.findKey((v, k) => k.id === id),
   });
 };
 
