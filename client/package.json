@@ -26,6 +26,7 @@
     "webpack-dev-server": "^2.4.1"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "immutable": "^3.8.1",
     "lodash.omit": "latest",
     "moment": "^2.18.1",
