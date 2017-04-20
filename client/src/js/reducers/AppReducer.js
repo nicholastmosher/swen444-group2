@@ -9,13 +9,12 @@ const AppReducer = (state = application, action) => {
   switch(action.type) {
 
     case AppActionTypes.LOG_IN:
-      console.log("Tried logging in with: ");
-      console.log(action.email);
-      console.log(action.password);
-      return state; //TODO implement
+      const user = state.get('users').find((v, k) => v.email === action.email);
+      const account = state.get('accounts').find((v, k) => v.user === user.id);
+      return state.set('userLoggedIn', true).set('activeAccount', account.id);
 
     case AppActionTypes.LOG_OUT:
-      return state; //TODO implement
+      return state.set('userLoggedIn', false).set('activeAccount', '');
 
     case AppActionTypes.CREATE_ACCOUNT:
       return state; //TODO implement
