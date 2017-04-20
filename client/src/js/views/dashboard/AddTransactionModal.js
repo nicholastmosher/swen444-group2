@@ -2,77 +2,95 @@
  * @author Nick Mosher <nicholastmosher@gmail.com>
  */
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Map, List } from 'immutable';
-import * as TransactionActions from '../../actions/TransactionActions';
+import { List } from 'immutable';
+import classNames from 'classnames';
+import { addTransaction } from '../../actions/TransactionActions';
 
 class AddTransactionModal extends Component {
   constructor() {
     super();
-    this.state = Map({
+    this.state = {
       description: '',
+      validDescription: false,
       date: '',
-      validDate: true,
+      validDate: false,
       amount: '',
-      validAmount: true,
+      validAmount: false,
       category: '',
       tags: '',
       failedSubmit: false,
-    });
+    };
   }
 
   handleDescription = (e) => {
-    console.log("HandleDescription");
-    console.log(this.state);
-    const desc = e.target.value;
-    this.setState(this.state.set('desc', desc)
-                            .set('validDesc', !!desc));
+    const description = e.target.value;
+    this.setState(state => ({description, validDescription: !!description}));
   };
 
   handleDate = (e) => {
     const date = e.target.value;
-    this.setState(this.state.set('date', date)
-                            .set('validDate', !!date));
+    this.setState(state => ({date, validDate: !!date}));
   };
 
   handleAmount = (e) => {
     const amount = e.target.value;
-    this.setState(this.state.set('amount', amount)
-                            .set('validAmount', !isNaN(amount)));
+    this.setState(state => ({amount, validAmount: !isNaN(amount)}))
   };
 
   handleCategory = (e) => {
     const category = e.target.value;
-    this.setState(this.state.set('category', category));
+    this.setState(state => ({category}));
   };
 
   handleTags = (e) => {
     const tags = e.target.value;
-    this.setState(this.state.set('tags', tags));
+    this.setState(state => ({tags}));
   };
 
   handleSubmit = () => {
-    if (!this.state.get('validDesc') ||
-        !this.state.get('validDate' ||
-        !this.state.get('validAmount'))) {
-      this.setState(this.state.set('failedSubmit', true));
+    console.log("HandleSubmit");
+    if (!this.state.validDescription ||
+        !this.state.validDate ||
+        !this.state.validAmount) {
+      this.setState(state => ({failedSubmit: true}));
       return;
     }
     const tags = (
-      !this.state.get('tags') ?
+      !this.state.tags ?
         List() :
-        List(this.state.get('tags').split(/\s+/))
+        List(this.state.tags.split(/\s+/))
     );
-    this.props.actions.addTransaction(
+    this.props.addTransaction(
       this.props.baseTid,
-      this.state.get('date'),
-      this.state.get('description'),
-      this.state.get('amount'),
-      this.state.get('category'),
+      this.state.date,
+      this.state.description,
+      parseInt(this.state.amount),
+      this.state.category,
       tags,
     )
   };
+
+  descFeedback = () => (
+    !this.state.validDescription && this.state.failedSubmit ?
+      <div className="form-control-feedback">
+        Descriptions can't be blank
+      </div> : null
+  );
+
+  dateFeedback = () => (
+    !this.state.validDate && this.state.failedSubmit ?
+      <div className="form-control-feedback">
+        Date is required and must be as 'MM/DD/YYYY'
+      </div> : null
+  );
+
+  amountFeedback = () => (
+    !this.state.validAmount && this.state.failedSubmit ?
+      <div className="form-control-feedback">
+        Amount must be a number
+      </div> : null
+  );
 
   render() {
     return (
@@ -86,44 +104,53 @@ class AddTransactionModal extends Component {
               </button>
             </div>
             <div className="modal-body">
-              <div className="col-md-12">
-                <label>Description</label>
+              <div className={classNames('form-group', 'col-md-12', {
+                'has-warning': !this.state.validDescription && this.state.failedSubmit,
+              })}>
+                <label className="form-control-label"><span className="required">* </span>Description</label>
                 <input id="Description"
                        className="form-control"
                        type="text"
-                       value={this.state.get('description')}
+                       value={this.state.description}
                        onChange={this.handleDescription}/>
+                {this.descFeedback()}
               </div>
-              <div className="col-md-12">
-                <label>Date</label>
+              <div className={classNames('form-group', 'col-md-12', {
+                'has-warning': !this.state.validDate && this.state.failedSubmit,
+              })}>
+                <label className="form-control-label"><span className="required">* </span>Date</label>
                 <input id="Date"
                        className="form-control"
                        type="text"
-                       value={this.state.get('date')}
+                       value={this.state.date}
                        onChange={this.handleDate}/>
+                {this.dateFeedback()}
               </div>
-              <div className="col-md-12">
-                <label>Amount</label>
+              <div className={classNames('form-group', 'col-md-12', {
+                'has-danger': !this.state.validAmount && this.state.failedSubmit,
+              })}>
+                <label className="form-control-label"><span className="required">* </span>Amount</label>
                 <input id="Amount"
                        className="form-control"
                        type="text"
-                       value={this.state.get('amount')}
+                       value={this.state.amount}
                        onChange={this.handleAmount}/>
+                {this.amountFeedback()}
               </div>
-              <div className="col-md-12">
-                <label>Category</label>
+              <div className="form-group col-md-12">
+                <label className="form-control-label">Category</label>
                 <input id="Category"
                        className="form-control"
                        type="text"
-                       value={this.state.get('category')}
+                       value={this.state.category}
                        onChange={this.handleCategory}/>
               </div>
-              <div className="col-md-12">
-                <label>Tags</label>
+              <div className="form-group col-md-12">
+                <label className="form-control-label">Tags</label>
                 <input id="Tags"
                        className="form-control"
                        type="text"
-                       value={this.state.get('tags')}
+                       value={this.state.tags}
                        onChange={this.handleTags}/>
               </div>
             </div>
@@ -142,7 +169,8 @@ class AddTransactionModal extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(TransactionActions, dispatch),
+  addTransaction: (baseTid, date, description, amount, category, tags) =>
+    dispatch(addTransaction(baseTid, date, description, amount, category, tags)),
 });
 
-export default connect(mapDispatchToProps)(AddTransactionModal);
+export default connect(state => state, mapDispatchToProps)(AddTransactionModal);
