@@ -20,7 +20,7 @@
 }
 
 .income-color {
-  color: limegreen;
+  color: #000000;
 }
 
 .expense-color {
@@ -69,4 +69,26 @@
 
 .dashboard-graphs {
 
+}
+
+.snapshot-bar-income {
+  background-color: limegreen;
+  height: 50px;
+  text-align: center;
+  padding-top: 15px;
+}
+
+.snapshot-bar-expense {
+  background-color: red;
+  height: 50px;
+  text-align: center;
+  padding-top: 15px;
+}
+
+.snapshot-bar-remaining {
+  background-color: transparent;
+  color: black;
+  height: 50px;
+  text-align: center;
+  padding-top: 15px;
 }

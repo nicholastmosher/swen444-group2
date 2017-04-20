@@ -2,6 +2,8 @@
  * @author Nick Mosher <nicholastmosher@gmail.com>
  */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { Map } from 'immutable';
 
 class SignupView extends Component {
@@ -105,10 +107,15 @@ class SignupView extends Component {
                    onChange={this.handleConfirmPassword} />
           </div>
         </div>
-        <button className="signup-button button-round">Create Account</button>
+        <button className="signup-button button-round"
+                onClick={() => this.props.push()}>Create Account</button>
       </div>
     );
   }
 }
 
-export default SignupView;
+const mapDispatchToProps = (dispatch) => ({
+  push: () => dispatch(push('/dashboard')),
+});
+
+export default connect(state => state, mapDispatchToProps)(SignupView);
