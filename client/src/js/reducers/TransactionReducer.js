@@ -12,6 +12,7 @@ const TransactionReducer = (state = transactions, action) => {
   switch(action.type) {
 
     case TransactionActionTypes.ADD_TRANSACTION:
+      console.log("Adding transaction...");
 
       const t = new Transaction({
         id: newKey(state.get('transactions')).toString(),

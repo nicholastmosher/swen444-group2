@@ -26,6 +26,7 @@
     "webpack-dev-server": "^2.4.1"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "immutable": "^3.8.1",
     "lodash.omit": "latest",
     "moment": "^2.18.1",
@@ -34,7 +35,6 @@
     "react-dates": "^9.0.0",
     "react-dom": "^15.4.2",
     "react-google-charts": "latest",
-    "react-moment-proptypes": "latest",
     "react-redux": "^5.0.3",
     "react-router": "^4.0.0",
     "react-router-dom": "^4.0.0",

@@ -3,8 +3,10 @@
 }
 
 .dashboard-header {
-  margin-top: 10px;
-  margin-left: 5px;
+  margin-top: 15px;
+  position: relative;
+  text-align-last: center;
+
 }
 
 .row-header{
@@ -35,15 +37,9 @@
   position: absolute;
 }
 
-.date-picker1 {
+.date-picker {
   padding: 5px;
   left: 0px;
-  position: absolute;
-}
-
-.date-picker2 {
-  padding: 5px;
-  right: 0px;
   position: absolute;
 }
 

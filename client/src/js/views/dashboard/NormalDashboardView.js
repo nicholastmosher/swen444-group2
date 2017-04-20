@@ -1,7 +1,6 @@
 /**
- * @author Nick Mosher <nicholastmosher@gmail.com>
+ * @author Daniel Roberts
  */
-
 import React from 'react';
 import { Chart } from 'react-google-charts';
 import DatePicker  from '../../components/DatePicker';
@@ -9,7 +8,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { getMostRecentTransactions, getGraphData, getBalanceData } from '../../data/Utils';
 import * as PlanActions from '../../actions/PlanActions';
-
 
 const NormalDashboardView = (props) => (
   <div className="container-fluid">
