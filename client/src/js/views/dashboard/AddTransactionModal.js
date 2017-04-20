@@ -4,24 +4,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { List } from 'immutable';
+import $ from 'jquery';
 import classNames from 'classnames';
 import { addTransaction } from '../../actions/TransactionActions';
+
+const initialState = {
+  description: '',
+  validDescription: false,
+  date: '',
+  validDate: false,
+  amount: '',
+  validAmount: false,
+  category: '',
+  tags: '',
+  failedSubmit: false,
+};
 
 class AddTransactionModal extends Component {
   constructor() {
     super();
-    this.state = {
-      description: '',
-      validDescription: false,
-      date: '',
-      validDate: false,
-      amount: '',
-      validAmount: false,
-      category: '',
-      tags: '',
-      failedSubmit: false,
-    };
+    this.state = initialState;
   }
+
+  reset = () => {
+    this.setState(initialState);
+  };
 
   handleDescription = (e) => {
     const description = e.target.value;
@@ -68,7 +75,9 @@ class AddTransactionModal extends Component {
       parseInt(this.state.amount),
       this.state.category,
       tags,
-    )
+    );
+    $('#' + this.props.modalId).modal('hide');
+    this.reset();
   };
 
   descFeedback = () => (
@@ -159,7 +168,8 @@ class AddTransactionModal extends Component {
                       onClick={this.handleSubmit}>
                 Add Transaction
               </button>
-              <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" className="btn btn-secondary" data-dismiss="modal"
+                      onClick={this.reset}>Close</button>
             </div>
           </div>
         </div>
