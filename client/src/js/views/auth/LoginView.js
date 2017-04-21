@@ -116,10 +116,10 @@ const mapStateToProps = ({AppReducer}) => {
     if (!account) return false;
     return account.password === password;
   };
-  return {
+  return ({
     emailExists,
     validLogin,
-  }
+  });
 };
 
 const mapDispatchToProps = (dispatch) => ({
