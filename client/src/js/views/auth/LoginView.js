@@ -11,7 +11,6 @@ const initialState = {
   password: '',
   passwordValid: true,
   failedSubmit: false,
-  validLogin: true,
 };
 
 class LoginView extends Component {
@@ -20,54 +19,43 @@ class LoginView extends Component {
     this.state = initialState;
   };
 
-  reset = () => {
-    this.setState(initialState);
-  };
+  reset = () => this.setState(initialState);
+  check = () => this.state.failedSubmit;
 
-  handleEmail = (e) => {
-    const email = e.target.value;
-    const emailValid = email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
-    this.setState(state => ({email, emailValid}));
-  };
-
-  emailFeedback = () => (
-    this.state.failedSubmit && !this.state.emailValid ?
-      <div className="form-group has-danger">
-        <label className="form-control-feedback">Invalid Email</label>
-      </div> : null
-  );
-
-  handlePassword = (e) => {
-    const password = e.target.value;
-    const passwordValid = !!password;
-    this.setState(state => ({password, passwordValid}));
-  };
-
-  passwordFeedback = () => (
-    this.state.failedSubmit && !this.state.passwordValid ?
-      <div className="form-group has-danger">
-        <label className="form-control-feedback">Invalid Password</label>
-      </div> : null
-  );
+  handleEmail = (e) => this.setState({email: e.target.value});
+  handlePassword = (e) => this.setState({password: e.target.value});
 
   handleSubmit = () => {
-    if (!this.state.emailValid || !this.state.passwordValid) {
+    if (!this.emailValid() || !this.passwordValid()) {
       this.setState(state => ({failedSubmit: true}));
       return;
     }
-    if (this.props.validLogin(this.state.email, this.state.password)) {
+    if (this.loginValid()) {
       this.props.login(this.state.email, this.state.password);
       this.reset();
-      return;
     }
-    this.setState(state => ({validLogin: false}));
   };
 
-  submitFeedback = () => (
-    !this.state.validLogin ?
-      <div className="form-group has-danger">
-        <label className="form-control-feedback">Invalid email and password combination</label>
-      </div> : null
+  emailValid = () => this.state.email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
+  passwordValid = () => !!this.state.password;
+  loginValid = () => this.props.validLogin(this.state.email, this.state.password);
+
+  emailFeedback = () => (!this.emailValid() && this.check() ?
+    <div className="form-group has-danger">
+      <label className="form-control-feedback">Invalid Email</label>
+    </div> : null
+  );
+
+  passwordFeedback = () => (!this.passwordValid() && this.check() ?
+    <div className="form-group has-danger">
+      <label className="form-control-feedback">Invalid Password</label>
+    </div> : null
+  );
+
+  submitFeedback = () => (!this.loginValid() && this.check() ?
+    <div className="form-group has-danger">
+      <label className="form-control-feedback">Invalid email and password combination</label>
+    </div> : null
   );
 
   render() {
