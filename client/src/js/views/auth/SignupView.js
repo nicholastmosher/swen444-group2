@@ -3,119 +3,173 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
-import { Map } from 'immutable';
+import { createAccount } from '../../actions/AppActions';
+
+const initialState = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  confirmEmail: '',
+  password: '',
+  confirmPassword: '',
+  failedSubmit: false,
+};
 
 class SignupView extends Component {
   constructor() {
     super();
-    this.state = Map({
-      firstName: '',
-      lastName: '',
-      email: '',
-      confirmEmail: '',
-      password: '',
-      confirmPassword: '',
-    });
+    this.state = initialState;
   }
 
-  handleFirstName(event) {
-    this.state.set('firstName', event.target.value);
-  }
+  reset = () => this.setState(initialState);
+  check = () => this.state.failedSubmit;
 
-  handleLastName(event) {
-    this.state.set('lastName', event.target.value);
-  }
+  handleFirstName = (e) => this.setState({firstName: e.target.value});
+  handleLastName = (e) => this.setState({lastName: e.target.value});
+  handleEmail = (e) => this.setState({email: e.target.value});
+  handleConfirmEmail = (e) => this.setState({confirmEmail: e.target.value});
+  handlePassword = (e) => this.setState({password: e.target.value});
+  handleConfirmPassword = (e) => this.setState({confirmPassword: e.target.value});
 
-  handleEmail(event) {
-    this.state.set('email', event.target.value);
-  }
+  validFirstName = () => !!this.state.firstName;
+  validLastName = () => !!this.state.lastName;
+  validEmail = () => this.state.email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
+  emailMatches = () => this.state.email === this.state.confirmEmail;
+  validPassword = () => !!this.state.password && this.state.password.length >= 8;
+  passwordMatches = () => this.state.password === this.state.confirmPassword;
 
-  handleConfirmEmail(event) {
-    this.state.set('confirmEmail', event.target.value);
-  }
+  firstNameFeedback = () => (!this.validFirstName() && this.check() ?
+      <div className="form-group has-danger">
+        <label className="form-control-feedback">First name is required</label>
+      </div> : null
+  );
 
-  handlePassword(event) {
-    this.state.set('password', event.target.value);
-  }
+  lastNameFeedback = () => (!this.validLastName() && this.check() ?
+      <div className="form-group has-danger">
+        <label className="form-control-feedback">Last name is required</label>
+      </div> : null
+  );
 
-  handleConfirmPassword(event) {
-    this.state.set('confirmPassword', event.target.value);
-  }
+  emailFeedback = () => (!this.validEmail() && this.check() ?
+    <div className="form-group has-danger">
+      <label className="form-control-feedback">Invalid email</label>
+    </div> : null
+  );
+
+  emailMatchFeedback = () => (!this.emailMatches() && this.check() ?
+    <div className="form-group has-danger">
+      <label className="form-control-feedback">Email doesn't match</label>
+    </div> : null
+  );
+
+  passwordFeedback = () => (!this.validPassword() && this.check() ?
+      <div className="form-group has-danger">
+        <label className="form-control-feedback">Password must be at least 8 characters</label>
+      </div> : null
+  );
+
+  passwordMatchFeedback = () => (!this.passwordMatches() && this.check() ?
+      <div className="form-group has-danger">
+        <label className="form-control-feedback">Password doesn't match</label>
+      </div> : null
+  );
+
+  handleSubmit = () => {
+    if (!this.validFirstName() ||
+        !this.validLastName() ||
+        !this.validEmail() ||
+        !this.emailMatches() ||
+        !this.validPassword() ||
+        !this.passwordMatches()) {
+      this.setState({failedSubmit: true});
+      return;
+    }
+    this.props.createAccount(this.state.firstName,
+                             this.state.lastName,
+                             this.state.email,
+                             this.state.password);
+    this.reset();
+  };
 
   render() {
     return (
       <div className="budget-auth-signup">
         <h1>Signup</h1>
         <div className="form-group row">
-          <label htmlFor="loginFirstName" className="col-4 col-form-label">First Name</label>
+          <label htmlFor="loginFirstName" className="col-4 col-form-label"><span className="required">* </span>First Name</label>
           <div className="col-7">
             <input id="loginFirstName"
                    className="form-control"
                    type="text"
-                   value={this.state.get('firstName')}
+                   value={this.state.firstName}
                    onChange={this.handleFirstName} />
           </div>
+          {this.firstNameFeedback()}
         </div>
         <div className="form-group row">
-          <label htmlFor="loginLastName" className="col-4 col-form-label">Last Name</label>
+          <label htmlFor="loginLastName" className="col-4 col-form-label"><span className="required">* </span>Last Name</label>
           <div className="col-7">
             <input id="loginLastName"
                    className="form-control"
                    type="text"
-                   value={this.state.get('lastName')}
+                   value={this.state.lastName}
                    onChange={this.handleLastName} />
           </div>
+          {this.lastNameFeedback()}
         </div>
         <div className="form-group row">
-          <label htmlFor="loginEmail" className="col-4 col-form-label">Email</label>
+          <label htmlFor="loginEmail" className="col-4 col-form-label"><span className="required">* </span>Email</label>
           <div className="col-7">
             <input id="loginEmail"
                    className="form-control"
                    type="text"
-                   value={this.state.get('email')}
+                   value={this.state.email}
                    onChange={this.handleEmail} />
           </div>
+          {this.emailFeedback()}
         </div>
         <div className="form-group row">
-          <label htmlFor="loginConfirmEmail" className="col-4 col-form-label">Confirm Email</label>
+          <label htmlFor="loginConfirmEmail" className="col-4 col-form-label"><span className="required">* </span>Confirm Email</label>
           <div className="col-7">
             <input id="loginConfirmEmail"
                    className="form-control"
                    type="text"
-                   value={this.state.get('confirmEmail')}
+                   value={this.state.confirmEmail}
                    onChange={this.handleConfirmEmail} />
           </div>
+          {this.emailMatchFeedback()}
         </div>
         <div className="form-group row">
-          <label htmlFor="loginPassword" className="col-4 col-form-label">Password</label>
+          <label htmlFor="loginPassword" className="col-4 col-form-label"><span className="required">* </span>Password</label>
           <div className="col-7">
             <input id="loginPassword"
                    className="form-control"
                    type="password"
-                   value={this.state.get('password')}
+                   value={this.state.password}
                    onChange={this.handlePassword} />
           </div>
+          {this.passwordFeedback()}
         </div>
         <div className="form-group row">
-          <label htmlFor="loginConfirmPassword" className="col-4 col-form-label">Confirm Password</label>
+          <label htmlFor="loginConfirmPassword" className="col-4 col-form-label"><span className="required">* </span>Confirm Password</label>
           <div className="col-7">
             <input id="loginConfirmPassword"
                    className="form-control"
                    type="password"
-                   value={this.state.get('confirmPassword')}
+                   value={this.state.confirmPassword}
                    onChange={this.handleConfirmPassword} />
           </div>
+          {this.passwordMatchFeedback()}
         </div>
         <button className="signup-button button-round"
-                onClick={() => this.props.push()}>Create Account</button>
+                onClick={this.handleSubmit}>Create Account</button>
       </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  push: () => dispatch(push('/dashboard')),
+  createAccount: (first, last, email, password) => dispatch(createAccount(first, last, email, password)),
 });
 
 export default connect(state => state, mapDispatchToProps)(SignupView);

@@ -3,10 +3,10 @@
  * @author Zach Moran <zjm1065@rit.edu>
  */
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import * as PlanActions from '../../actions/PlanActions';
+import { logOut } from '../../actions/AppActions';
+import { selectPlan } from '../../actions/PlanActions';
 
 /**
  * Displays the navigation bar at the top of each "dashboard" page.
@@ -31,7 +31,7 @@ const NavigationView = (props) => (
               {props.plans.valueSeq().map((plan) => (
                 <button key={plan.id}
                         className="dropdown-item"
-                        onClick={()=>props.actions.selectPlan(plan.id)}>
+                        onClick={()=>props.selectPlan(plan.id)}>
                   {plan.get('name')}
                 </button>
               ))}
@@ -56,7 +56,8 @@ const NavigationView = (props) => (
               <NavLink to="/dashboard/notifications" activeClassName="active">Notifications</NavLink>
             </li>
             <li className="nav-inline-item">
-              <h1 className="navbar-brand mb-0">Username</h1>
+              <h1 className="navbar-brand mb-0"
+                  onClick={props.logout}>{props.name}</h1>
             </li>
           </ul>
         </li>
@@ -65,14 +66,21 @@ const NavigationView = (props) => (
   </div>
 );
 
-const mapStateToProps = ({AppReducer, PlanReducer}) => ({
-  title: AppReducer.get('title'),
-  planName: PlanReducer.getIn([ 'plans', PlanReducer.get('activePlan'), 'name' ]),
-  plans: PlanReducer.get('plans'),
-});
+const mapStateToProps = ({AppReducer, PlanReducer}) => {
+  const userId = AppReducer.getIn([ 'accounts', AppReducer.get('activeAccount'), 'user' ]);
+  const user = AppReducer.getIn([ 'users', userId ]);
+  return ({
+    title: AppReducer.get('title'),
+    userId,
+    name: (user.firstName + ' ' + user.lastName),
+    planName: PlanReducer.getIn([ 'plans', PlanReducer.get('activePlan'), 'name' ]),
+    plans: PlanReducer.get('plans'),
+  })
+};
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(PlanActions, dispatch)
+  logout: () => dispatch(logOut()),
+  selectPlan: (id) => dispatch(selectPlan(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavigationView);

@@ -8,9 +8,6 @@ export const application = fromJS({
   title: 'Money Maid',
   userLoggedIn: false,
   activeAccount: undefined,
-});
-
-export const users = fromJS({
   accounts: {
     '0': Account({
       id: '0',

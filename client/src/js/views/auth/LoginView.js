@@ -2,65 +2,61 @@
  * @author Nick Mosher <nicholastmosher@gmail.com>
  */
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
-import { Map } from 'immutable';
-import * as AppActions from '../../actions/AppActions';
+import { logIn } from '../../actions/AppActions';
+
+const initialState = {
+  email: '',
+  emailValid: true,
+  password: '',
+  passwordValid: true,
+  failedSubmit: false,
+};
 
 class LoginView extends Component {
   constructor() {
     super();
-    this.state = Map({
-      email: '',
-      emailValid: true,
-      password: '',
-      passwordValid: true,
-      checkValid: false,
-      validLogin: true,
-    });
+    this.state = initialState;
   };
 
-  handleEmail = (e) => {
-    const email = e.target.value;
-    const valid = email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/);
-    this.setState(this.state.set('email', email).set('emailValid', valid));
-  };
+  reset = () => this.setState(initialState);
+  check = () => this.state.failedSubmit;
 
-  emailFeedback = () => {
-    if (this.state.get('checkValid') && !this.state.get('emailValid')) {
-      return ( <div className="form-control-feedback">Invalid Email</div> );
-    }
-    return null;
-  };
+  handleEmail = (e) => this.setState({email: e.target.value});
+  handlePassword = (e) => this.setState({password: e.target.value});
 
-  handlePassword = (e) => {
-    const pass = e.target.value;
-    const valid = pass.length > 8;
-    this.setState(state =>
-      state.set('password', e.target.value)
-                .set('passwordValid', valid)
-    );
-  };
-
-  passwordFeedback = () => {
-    if (this.state.get('checkValid') && !this.state.get('passwordValid')) {
-      return ( <div className="form-control-feedback">Invalid Password</div> );
-    }
-    return null;
-  };
-
-  handleClick = () => {
-    if (!this.state.get('emailValid') || !this.state.get('passwordValid')) {
-      this.setState(state => state.set('checkValid', true));
+  handleSubmit = () => {
+    if (!this.emailValid() || !this.passwordValid()) {
+      this.setState(state => ({failedSubmit: true}));
       return;
     }
-    if (this.props.validLogin(this.state.get('email'), this.state.get('password'))) {
-      this.props.actions.logIn(this.state.get('email'), this.state.get('password'));
-      return;
+    if (this.loginValid()) {
+      this.props.login(this.state.email, this.state.password);
+      this.reset();
     }
-    this.setState(state => state.set('validLogin', false));
   };
+
+  emailValid = () => this.state.email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
+  passwordValid = () => !!this.state.password;
+  loginValid = () => this.props.validLogin(this.state.email, this.state.password);
+
+  emailFeedback = () => (!this.emailValid() && this.check() ?
+    <div className="form-group has-danger">
+      <label className="form-control-feedback">Invalid Email</label>
+    </div> : null
+  );
+
+  passwordFeedback = () => (!this.passwordValid() && this.check() ?
+    <div className="form-group has-danger">
+      <label className="form-control-feedback">Invalid Password</label>
+    </div> : null
+  );
+
+  submitFeedback = () => (!this.loginValid() && this.check() ?
+    <div className="form-group has-danger">
+      <label className="form-control-feedback">Invalid email and password combination</label>
+    </div> : null
+  );
 
   render() {
     return (
@@ -72,7 +68,7 @@ class LoginView extends Component {
             <input id="loginEmail"
                    className="form-control"
                    type="text"
-                   value={this.state.get('email')}
+                   value={this.state.email}
                    onChange={this.handleEmail} />
           </div>
           {this.emailFeedback()}
@@ -83,13 +79,14 @@ class LoginView extends Component {
             <input id="loginPassword"
                    className="form-control"
                    type="password"
-                   value={this.state.get('password')}
+                   value={this.state.password}
                    onChange={this.handlePassword} />
           </div>
           {this.passwordFeedback()}
         </div>
+        {this.submitFeedback()}
         <button className="login-button button-round"
-                onClick={() => this.props.push()}>Login</button>
+                onClick={this.handleSubmit}>Login</button>
       </div>
     );
   }
@@ -107,15 +104,14 @@ const mapStateToProps = ({AppReducer}) => {
     if (!account) return false;
     return account.password === password;
   };
-  return {
+  return ({
     emailExists,
     validLogin,
-  }
+  });
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(AppActions, dispatch),
-  push: () => dispatch(push('/dashboard'))
+  login: (email, password) => dispatch(logIn(email, password)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginView);
