@@ -3,9 +3,11 @@
  * @author Adam Audycki <apa7395@rit.edu>
  */
 import React from 'react';
-import DatePicker  from '../../components/DatePicker';
-import { Chart } from 'react-google-charts';
 import { Component } from 'react';
+import DatePicker  from '../../components/DatePicker';
+import { connect } from 'react-redux';
+import { Chart } from 'react-google-charts';
+import { getMostRecentTransactions, getGraphData, getBalanceData } from '../../data/Utils';
 
 class GraphsView extends Component {
     constructor() {
@@ -13,14 +15,9 @@ class GraphsView extends Component {
         this.state = {
             selectedOption: 'PieChart',
             selectedFilter: 'Income',
-            data: [
-                ['Income', 'Money'],
-                ['Work', 22200],
-                ['Babysitting', 1000],
-                ['Coding', 3000],
-                ['Other', 5932],
-            ]
+            //data: this.props.graphData,
         };
+        console.log(this);
         this.onSiteChanged = this.onSiteChanged.bind(this);
         this.onFilterChanged = this.onFilterChanged.bind(this);
     }
@@ -38,22 +35,12 @@ class GraphsView extends Component {
     onFilterChanged(event) {
         var data;
         if (event.target.value == 'Income') {
-            data = [
-                ['Income', 'Money'],
-                ['Work', 22200],
-                ['Babysitting', 1000],
-                ['Coding', 3000],
-                ['Other', 5932],
-            ];
+            console.log(this);
+            data = this.props.graphData
         }
         else if (event.target.value == 'Expenses') {
-            data = [
-                ['Expenses', 'Money'],
-                ['Food', 30000],
-                ['Gas', 500],
-                ['Utilities', 2500],
-                ['Other', 1000],
-            ]
+            console.log(this);
+            data = this.props.graphData
         }
         this.setState({
             selectedFilter: event.target.value,
@@ -143,7 +130,7 @@ class GraphsView extends Component {
                                 chartType={this.state.selectedOption}
                                 data={this.state.data}
                                 options={{
-                                    title: 'My Budget',
+                                    title: this.props.planName,
                                     is3D: true,
                                 }}
                                 width="100%"
@@ -191,4 +178,22 @@ class GraphsView extends Component {
     }
 }
 
-export default GraphsView;
+const mapStateToProps = ({PlanReducer, TransactionReducer}) => {
+    const planName = PlanReducer.getIn(['plans', PlanReducer.get('activePlan'), 'name']);
+    const planId = PlanReducer.get('activePlan');
+    const baseTransactionId = PlanReducer.getIn(['plans', planId, 'baseTransaction']);
+
+    const graphData = getGraphData(TransactionReducer, baseTransactionId);
+    const balanceData = getBalanceData(TransactionReducer, baseTransactionId);
+
+    return ({
+        planName,
+        planId,
+        baseTid: baseTransactionId,
+        graphData,
+        income: balanceData.Income,
+        expenses: balanceData.Expense
+    });
+};
+
+export default connect(mapStateToProps)(GraphsView);
