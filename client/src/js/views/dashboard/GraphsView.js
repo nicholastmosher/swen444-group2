@@ -5,9 +5,11 @@
 import React from 'react';
 import { Component } from 'react';
 import DatePicker  from '../../components/DatePicker';
-import { connect } from 'react-redux';
 import { Chart } from 'react-google-charts';
-import { getMostRecentTransactions, getGraphData, getBalanceData } from '../../data/Utils';
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { getMostRecentTransactions, getGraphData, getBalanceData, getIncomeData, getExpenseData } from '../../data/Utils';
+import * as PlanActions from '../../actions/PlanActions';
 
 class GraphsView extends Component {
     constructor() {
@@ -15,11 +17,14 @@ class GraphsView extends Component {
         this.state = {
             selectedOption: 'PieChart',
             selectedFilter: 'Income',
-            //data: this.props.graphData,
         };
-        console.log(this);
         this.onSiteChanged = this.onSiteChanged.bind(this);
         this.onFilterChanged = this.onFilterChanged.bind(this);
+    }
+
+    //Sets the graph data after the object has been created.
+    componentDidMount() {
+        this.setState( {data: this.props.income});
     }
 
     //This is triggered when one of the Type of Graph radio buttons are clicked.
@@ -35,13 +40,12 @@ class GraphsView extends Component {
     onFilterChanged(event) {
         var data;
         if (event.target.value == 'Income') {
-            console.log(this);
-            data = this.props.graphData
+            data = this.props.income;
         }
         else if (event.target.value == 'Expenses') {
-            console.log(this);
-            data = this.props.graphData
+            data = this.props.expense;
         }
+
         this.setState({
             selectedFilter: event.target.value,
             data: data
@@ -179,21 +183,32 @@ class GraphsView extends Component {
 }
 
 const mapStateToProps = ({PlanReducer, TransactionReducer}) => {
-    const planName = PlanReducer.getIn(['plans', PlanReducer.get('activePlan'), 'name']);
+    const planName = PlanReducer.getIn([ 'plans', PlanReducer.get('activePlan'), 'name' ]);
     const planId = PlanReducer.get('activePlan');
-    const baseTransactionId = PlanReducer.getIn(['plans', planId, 'baseTransaction']);
+    const plans = PlanReducer.get('plans');
+    const baseTransactionId = PlanReducer.getIn([ 'plans', planId, 'baseTransaction' ]);
 
     const graphData = getGraphData(TransactionReducer, baseTransactionId);
+    const income = getIncomeData(TransactionReducer, baseTransactionId);
+    const expense = getExpenseData(TransactionReducer, baseTransactionId);
     const balanceData = getBalanceData(TransactionReducer, baseTransactionId);
-
+    const transactions = getMostRecentTransactions(TransactionReducer, baseTransactionId, 3);
+    const amountOfBudget = Math.abs(balanceData.Expense);
     return ({
         planName,
         planId,
         baseTid: baseTransactionId,
         graphData,
-        income: balanceData.Income,
-        expenses: balanceData.Expense
+        income,
+        expense,
+        net: balanceData.Net,
+        transactions,
+        amountOfBudget,
     });
 };
 
-export default connect(mapStateToProps)(GraphsView);
+const mapDispatchToProps = (dispatch) => ({
+    actions: bindActionCreators(PlanActions, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(GraphsView);
