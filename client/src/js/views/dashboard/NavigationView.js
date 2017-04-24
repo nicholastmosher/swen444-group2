@@ -25,7 +25,7 @@ const NavigationView = (props) => (
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false">
-              {props.planName}
+              Financial Plans
             </a>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
               {props.plans.valueSeq().map((plan) => (
@@ -35,6 +35,12 @@ const NavigationView = (props) => (
                   {plan.get('name')}
                 </button>
               ))}
+              <button
+                  className="dropdown-item"
+              >
+                <span className="glyphicon-plus">+ </span>
+                New Plan
+              </button>
             </div>
           </div>
         </li>
