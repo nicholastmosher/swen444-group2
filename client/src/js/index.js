@@ -12,8 +12,10 @@ import configureStore from './store/configureStore';
 import AuthContainer from './containers/AuthContainer';
 import DashboardContainer from './containers/DashboardContainer';
 import MoneyMaidContainer from './containers/MoneyMaidContainer';
-import '../stylesheets/main.scss';
 import Cookies from 'universal-cookie';
+
+import '../stylesheets/main.scss';
+require('bootstrap');
 
 const cookies = new Cookies();
 const history = createHistory();
