@@ -56,8 +56,18 @@ const NavigationView = (props) => (
               <NavLink to="/dashboard/notifications" activeClassName="active">Notifications</NavLink>
             </li>
             <li className="nav-inline-item">
-              <h1 className="navbar-brand mb-0"
-                  onClick={props.logout}>{props.name}</h1>
+              <div className="dropdown">
+                <a className="dropdown-toggle"
+                   role="button"
+                   data-toggle="dropdown">
+                  <h1 className="navbar-brand mb-0">{props.name}</h1>
+                </a>
+                <div className="dropdown-menu">
+                  <button className="dropdown-item" onClick={props.logout}>
+                    Logout
+                  </button>
+                </div>
+              </div>
             </li>
           </ul>
         </li>
