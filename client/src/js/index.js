@@ -17,10 +17,6 @@ import Cookies from 'universal-cookie';
 import '../stylesheets/main.scss';
 require('bootstrap');
 
-<<<<<<< 251518c3b190895d77c8028c0cb4ec61c0c0933b
-
-=======
->>>>>>> Fixes boostrap problems by reqiring bootstrap js.
 const cookies = new Cookies();
 const history = createHistory();
 const store = configureStore(history);
