@@ -3,11 +3,20 @@
  */
 import { fromJS, List } from 'immutable';
 import { User, Account, Plan, Permission, Tag, Transaction } from './Records';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
+
+//set cookie if it does not exist
+if(cookies.get('loggedin') == undefined) {
+    const expiration = (new Date().getTime() + 30*60000);
+    cookies.set('loggedin', { loggedin: false, userId: undefined }, { path: "/", Expires: expiration })
+}
 
 export const application = fromJS({
   title: 'Money Maid',
-  userLoggedIn: false,
-  activeAccount: undefined,
+  userLoggedIn: cookies.get('loggedin').loggedin,
+  activeAccount: cookies.get('loggedin').userId,
   accounts: {
     '0': Account({
       id: '0',
