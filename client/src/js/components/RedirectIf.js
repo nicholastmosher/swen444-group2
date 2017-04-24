@@ -16,9 +16,8 @@ import { Redirect } from 'react-router-dom';
  * @returns {*} A Redirect if the condition is true, or the children components
  * otherwise.
  */
-const RedirectIf = ({condition, from, to, children}) => {
-  if (condition) return (<Redirect to={to} from={from} />);
-  return children;
-};
+const RedirectIf = ({condition, from, to, children}) => (
+  condition ? <Redirect from={from} to={to}/> : children
+);
 
 export default RedirectIf;
