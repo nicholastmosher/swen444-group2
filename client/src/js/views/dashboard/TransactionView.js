@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import { getTransactions, toCSV } from '../../data/Utils';
 import AddTransactionModal from './AddTransactionModal';
 
@@ -38,9 +39,9 @@ class TransactionView extends Component {
     return (
       <div className="container-fluid">
         <div className="row add-transactions">
-          <div className="col-md-1"></div>
+          <div className="col-md-1"/>
           <h2 className="col-md-2">Transactions</h2>
-          <div className="col-md-6"></div>
+          <div className="col-md-6"/>
           <div className="col-md-2 text-right">
             <button className="btn btn-success"
                     type="button"
@@ -49,26 +50,29 @@ class TransactionView extends Component {
               Add Transaction
             </button>
           </div>
-          <div className="col-md-1"></div>
+          <div className="col-md-1"/>
         </div>
         <div className="row add-transactions">
-          <div className="col-md-1"></div>
+          <div className="col-md-1"/>
           <div className="col-md-5">
             <table className="table table-hover">
               <thead>
               <tr>
                 <th className="th">Date</th>
+                <th className="th">Description</th>
                 <th className="th">Amount</th>
-                <th className="th">Balance</th>
               </tr>
               </thead>
               <tbody>
               {this.props.transactions.entrySeq().map(([t, amount]) => (
                 <tr key={t.id}
-                    onClick={() => this.selectTransaction(t.id)}>
+                    onClick={() => this.selectTransaction(t.id)}
+                    className={classNames({
+                      'table-info': t.id === this.state.selectedTid,
+                    })}>
                   <td>{t.date}</td>
+                  <td>{t.description}</td>
                   <td>{(t.amount > 0 ? ('+' + t.amount) : t.amount)}</td>
-                  <td>{amount}</td>
                 </tr>
               ))}
               </tbody>
@@ -92,6 +96,10 @@ class TransactionView extends Component {
                     <td>{this.props.tById(this.state.selectedTid).amount}</td>
                   </tr>
                   <tr>
+                    <td>Remaining Balance</td>
+                    <td>{this.props.transactions.get(this.props.tById(this.state.selectedTid))}</td>
+                  </tr>
+                  <tr>
                     <td>Category</td>
                     <td>{this.props.tById(this.state.selectedTid).category}</td>
                   </tr>
@@ -102,7 +110,7 @@ class TransactionView extends Component {
                 </tbody>
               </table>
             </div>
-            <div className="col-md-1"></div>
+            <div className="col-md-1"/>
           </div>
         </div>
         <AddTransactionModal modalId={tModal} baseTid={this.props.baseTid}/>
