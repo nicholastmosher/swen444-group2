@@ -36,7 +36,7 @@ class AddTransactionModal extends Component {
   };
 
   handleDate = (e) => {
-    const date = e.target.value;
+    let date = e.target.value;
     this.setState(state => ({date, validDate: !!date}));
   };
 
@@ -57,6 +57,12 @@ class AddTransactionModal extends Component {
 
   handleSubmit = () => {
     console.log("HandleSubmit");
+    //convert date to correct format
+    let date = new Date(this.state.date);
+
+    //KNOWN BUG: There is some sort of localization issue with getDate where it often shows the day to be a day behind
+    let dateString = (date.getMonth() + 1) + "/" + (date.getDate() + 1) + "/" + date.getFullYear();
+
     if (!this.state.validDescription ||
         !this.state.validDate ||
         !this.state.validAmount) {
@@ -70,7 +76,7 @@ class AddTransactionModal extends Component {
     );
     this.props.addTransaction(
       this.props.baseTid,
-      this.state.date,
+      dateString,
       this.state.description,
       parseInt(this.state.amount),
       this.state.category,
@@ -130,7 +136,7 @@ class AddTransactionModal extends Component {
                 <label className="form-control-label"><span className="required">* </span>Date</label>
                 <input id="Date"
                        className="form-control"
-                       type="text"
+                       type="date"
                        value={this.state.date}
                        onChange={this.handleDate}/>
                 {this.dateFeedback()}
@@ -147,7 +153,7 @@ class AddTransactionModal extends Component {
                 {this.amountFeedback()}
               </div>
               <div className="form-group col-md-12">
-                <label className="form-control-label">Category</label>
+                <label className="form-control-label"><span className="required">* </span>Category</label>
                 <input id="Category"
                        className="form-control"
                        type="text"
