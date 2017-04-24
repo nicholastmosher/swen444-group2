@@ -58,6 +58,7 @@ class TransactionView extends Component {
               <thead>
               <tr>
                 <th className="th">Date</th>
+                <th className="th">Description</th>
                 <th className="th">Amount</th>
                 <th className="th">Balance</th>
               </tr>
@@ -67,6 +68,7 @@ class TransactionView extends Component {
                 <tr key={t.id}
                     onClick={() => this.selectTransaction(t.id)}>
                   <td>{t.date}</td>
+                  <td>{t.description}</td>
                   <td>{(t.amount > 0 ? ('+' + t.amount) : t.amount)}</td>
                   <td>{amount}</td>
                 </tr>
