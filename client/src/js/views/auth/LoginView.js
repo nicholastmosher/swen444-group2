@@ -26,6 +26,7 @@ class LoginView extends Component {
   handlePassword = (e) => this.setState({password: e.target.value});
 
   handleSubmit = () => {
+
     if (!this.emailValid() || !this.passwordValid() || !this.loginValid()) {
       this.setState(state => ({failedSubmit: true}));
       return;

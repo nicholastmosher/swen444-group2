@@ -15,7 +15,6 @@ const AppReducer = (state = application, action) => {
       console.log("REDUCER LOG IN");
       const user = state.get('users').find((v, k) => v.email === action.email);
       const account = state.get('accounts').find((v, k) => v.user === user.id);
-
       const cookies = new Cookies();
       cookies.set('loggedin', { loggedin: true, userId: account.id }, { path: "/" });
 

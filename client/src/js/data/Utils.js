@@ -135,3 +135,33 @@ export const getBalanceData = (TReducer, baseT) => {
 
   return data;
 };
+
+export const getIncomeData = (TReducer, baseT) => {
+    let income = [['Category', 'Amount']];
+
+    let t = { next: baseT };
+    while (t = TReducer.getIn([ 'transactions', t.next ])) {
+        t = t.set('tags', t.tags.map(tagId => TReducer.getIn([ 'tags', tagId, 'key' ])));
+        t = t.set('category', TReducer.getIn([ 'tags', t.category, 'key' ]));
+
+        if (t.amount > 0) {
+            income.push([t.category, t.amount])
+        }
+    }
+    return income;
+};
+
+export const getExpenseData = (TReducer, baseT) => {
+    let expense = [['Category', 'Amount']];
+
+    let t = { next: baseT };
+    while (t = TReducer.getIn([ 'transactions', t.next ])) {
+        t = t.set('tags', t.tags.map(tagId => TReducer.getIn([ 'tags', tagId, 'key' ])));
+        t = t.set('category', TReducer.getIn([ 'tags', t.category, 'key' ]));
+
+        if (t.amount < 0) {
+            expense.push([t.category, Math.abs(t.amount)])
+        }
+    }
+    return expense;
+};
