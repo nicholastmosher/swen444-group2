@@ -12,6 +12,12 @@ if(cookies.get('loggedin') == undefined) {
     const expiration = (new Date().getTime() + 30*60000);
     cookies.set('loggedin', { loggedin: false, userId: undefined }, { path: "/", Expires: expiration })
 }
+// temporary fix for a bug where after a refresh user information is reset so if userId was > 0 it would
+// not load
+else if(cookies.get('loggedin').userId != 0){
+    const expiration = (new Date().getTime() + 30*60000);
+    cookies.set('loggedin', { loggedin: false, userId: undefined }, { path: "/", Expires: expiration })
+}
 
 export const application = fromJS({
   title: 'Money Maid',
