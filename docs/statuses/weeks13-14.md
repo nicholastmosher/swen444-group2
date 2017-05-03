@@ -43,3 +43,5 @@ title: SWEN-444 Group 2 Status Update
 
 * Originally we'd interviewed too few users due to a communication mixup.
   We solved this by identifying new users before the end of the last week.
+* We've identified more non-critical bugs, but these are an artifact of
+  this site being a prototype and not a fully-featured web application.
