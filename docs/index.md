@@ -9,3 +9,4 @@ This is where we'll post updates about project deliverables.
 * [Weeks 5-6](statuses/weeks5-6)
 * [Weeks 9-10](statuses/weeks9-10) 
 * [Weeks 11-12](statuses/weeks11-12)
+* [Weeks 13-14](statuses/weeks13-14)
