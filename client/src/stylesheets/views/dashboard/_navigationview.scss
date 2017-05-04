@@ -7,3 +7,12 @@
     color: $textLight;
   }
 }
+
+.plan-item {
+  padding-top: $dropdown-padding-y;
+  padding-bottom: $dropdown-padding-y;
+  > button {
+    margin-left: 20px;
+    height: 80%;
+  }
+}

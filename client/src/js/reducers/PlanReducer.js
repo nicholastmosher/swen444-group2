@@ -17,6 +17,18 @@ const PlanReducer = (state = plans, action) => {
     case PlanActionTypes.SELECT_PLAN:
       return state.set('activePlan', action.planId);
 
+    case PlanActionTypes.DELETE_PLAN:
+
+      // If any permissions referenced this plan, delete them.
+      const permissions = state.get('permissions');
+      const pId = action.planId;
+      permissions.filter(p => p.id === pId).forEach(p => {
+        state = state.deleteIn([ 'permissions', p.id ]);
+      });
+
+      // Delete the plan.
+      return state.deleteIn([ 'plans', action.planId ]);
+
     case PlanActionTypes.ADD_COLLABORATOR:
       return state; //TODO implement
 
