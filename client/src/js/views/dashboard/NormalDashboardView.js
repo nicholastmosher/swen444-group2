@@ -15,9 +15,6 @@ const NormalDashboardView = (props) => (
         <div className="col-md-1"></div>
           <h2 className="col-md-8">Current Plan: {props.planName}</h2>
         <div className="col-md-2 text-right">
-        <button type="button" className="btn btn-danger delete-button" data-toggle="modal" data-target="#deletePlan">
-          Delete Financial Plan
-        </button>
         </div>
         <div className="modal fade" id="deletePlan">
           <div className="modal-dialog" role="document">
