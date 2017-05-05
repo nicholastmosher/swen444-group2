@@ -48,7 +48,7 @@ const NormalDashboardView = (props) => (
             <div className="row">
               <div className="container">
                 <Chart
-                    chartType="BarChart"
+                    chartType="PieChart"
                     data={props.graphData}
                     options={{
                       title: props.planName,

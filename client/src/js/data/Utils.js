@@ -99,10 +99,10 @@ export const aggregateCategoryData = (TReducer, baseT) => {
     t = t.set('category', TReducer.getIn([ 'tags', t.category, 'key' ]));
 
     if (t.category in categories){
-      categories[t.category] += t.amount;
+      categories[t.category] += Math.abs(t.amount);
     }
     else {
-      categories[t.category] = t.amount;
+      categories[t.category] = Math.abs(t.amount);
     }
 
   }
