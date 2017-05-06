@@ -40,6 +40,12 @@ class AddTransactionModal extends Component {
     this.setState(state => ({date, validDate: !!date}));
   };
 
+  handleAmountType = (e) =>
+  {
+    const amountType = e.target.value;
+    this.setState(state => ({amountType}))
+  };
+
   handleAmount = (e) => {
     const amount = e.target.value;
     this.setState(state => ({amount, validAmount: !isNaN(amount)}))
@@ -48,11 +54,6 @@ class AddTransactionModal extends Component {
   handleCategory = (e) => {
     const category = e.target.value;
     this.setState(state => ({category}));
-  };
-
-  handleTags = (e) => {
-    const tags = e.target.value;
-    this.setState(state => ({tags}));
   };
 
   handleSubmit = () => {
@@ -69,18 +70,19 @@ class AddTransactionModal extends Component {
       this.setState(state => ({failedSubmit: true}));
       return;
     }
-    const tags = (
-      !this.state.tags ?
-        List() :
-        List(this.state.tags.split(/\s+/))
-    );
+
+    if (this.state.amountType == "expense")
+    {
+      console.log("setting value to expense...");
+      this.state.amount = parseInt(this.state.amount) * -1;
+    }
+
     this.props.addTransaction(
       this.props.baseTid,
       dateString,
       this.state.description,
       parseInt(this.state.amount),
       this.state.category,
-      tags,
     );
     $('#' + this.props.modalId).modal('hide');
     this.reset();
@@ -141,6 +143,15 @@ class AddTransactionModal extends Component {
                        onChange={this.handleDate}/>
                 {this.dateFeedback()}
               </div>
+              <div className="form-group col-md-12">
+                <span className="required">* </span>
+                <label className="radio-inline">
+                  <input id="amountType" type="radio" name="amountTypeRadio" value="income" onChange={this.handleAmountType}/>Income
+                </label>
+                <label className="radio-inline">
+                  <input id="amountType" type="radio" name="amountTypeRadio" value="expense" onChange={this.handleAmountType}/>Expense
+                </label>
+              </div>
               <div className={classNames('form-group', 'col-md-12', {
                 'has-danger': !this.state.validAmount && this.state.failedSubmit,
               })}>
@@ -160,14 +171,6 @@ class AddTransactionModal extends Component {
                        value={this.state.category}
                        onChange={this.handleCategory}/>
               </div>
-              <div className="form-group col-md-12">
-                <label className="form-control-label">Tags</label>
-                <input id="Tags"
-                       className="form-control"
-                       type="text"
-                       value={this.state.tags}
-                       onChange={this.handleTags}/>
-              </div>
             </div>
             <div className="modal-footer">
               <button type="submit" className="btn btn-primary btn-success"
@@ -185,8 +188,8 @@ class AddTransactionModal extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addTransaction: (baseTid, date, description, amount, category, tags) =>
-    dispatch(addTransaction(baseTid, date, description, amount, category, tags)),
+  addTransaction: (baseTid, date, description, amount, category) =>
+    dispatch(addTransaction(baseTid, date, description, amount, category)),
 });
 
 export default connect(state => state, mapDispatchToProps)(AddTransactionModal);

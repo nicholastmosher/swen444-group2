@@ -15,7 +15,7 @@ export const getTransactions = (TReducer, baseT) => {
   let transactions = OrderedMap( );
   let p, t = { next: baseT };
   while (t = TReducer.getIn([ 'transactions', t.next ])) {
-    t = t.set('tags', t.tags.map(tagId => TReducer.getIn([ 'tags', tagId, 'key' ])));
+    //t = t.set('tags', t.tags.map(tagId => TReducer.getIn([ 'tags', tagId, 'key' ])));
     t = t.set('category', TReducer.getIn([ 'tags', t.category, 'key' ]));
     transactions = transactions.set(t, (t.amount + (p ? transactions.get(p) : 0)));
     p = t;
