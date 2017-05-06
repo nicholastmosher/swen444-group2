@@ -2,11 +2,14 @@
  * @author Nick Mosher <nicholastmosher@gmail.com>
  * @author Zach Moran <zjm1065@rit.edu>
  */
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { toCSV } from '../../data/Utils';
+import classNames from 'classnames';
+import { bindActionCreators } from "redux";
 
-const CollaboratorsView = (props) => (
+const CollaboratorsView = (props) => {
+    return(
     <div className="row">
       <div className="col-md-1"></div>
       <div className="col-md-10">
@@ -17,12 +20,30 @@ const CollaboratorsView = (props) => (
             <div className="col-md-3">
             <div id="custom-search-input">
               <div className="input-group">
-                <input type="text" className="search-query form-control" placeholder="Collaborator Email"/>
                 <span className="input-group-btn">
-                <button className="btn btn-success" type="button">
+                <button className="btn btn-success" type="button" data-toggle="modal" data-target={'#collaboratorModal'}>
                   <span className="glyphicon glyphicon-search">Add User</span>
-                </button>
-                </span>
+                  </button>
+                  </span>
+                  <div className="modal" id="collaboratorModal">
+                      <div className="modal-dialog" role="document">
+                          <div className="modal-content">
+                              <div className="modal-header">
+                                  <h5 className="modal-title" id="exampleModalLabel">Add User</h5>
+                              </div>
+                              <div className={classNames('modal-body', 'form-group')}>
+                                                <label className="form-control-label"><span className="required">* </span>Email</label><div>
+                                                <input id="Email"
+                                                       className="emailForm"
+                                                       type="text"/></div>
+                              </div>
+                              <div className="modal-footer">
+                                  <button type="button" className="btn btn-primary" data-dismiss="modal" aria-label="Close">Add User</button>
+                                  <button type="button" className="btn btn-secondary" data-dismiss="modal" aria-label="Close">Cancel</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
               </div>
             </div>
             </div>
@@ -49,7 +70,26 @@ const CollaboratorsView = (props) => (
                   <td>{collaborator.get('lastName')}</td>
                   <td>{collaborator.get('email')}</td>
                   <td>{toCSV(props.privileges(collaborator).toSeq())}
-                    <button className="btn-danger btn-sm float-right">Revoke Access</button>
+                    <button className="btn-danger btn-sm float-right" data-toggle="modal" data-target={"#revokeAccess" + collaborator.get('id')}>Revoke Access</button>
+                    <div className="modal fade" id={"revokeAccess" + collaborator.get('id')}>
+                              <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                  <div className="modal-header">
+                                    <h5 className="modal-title" id="exampleModalLabel">Revoke User Access</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div className="modal-body">
+                                    <p>Are you sure you want to revoke access for {collaborator.get('firstName')}?</p>
+                                  </div>
+                                  <div className="modal-footer">
+                                    <button type="button" className="btn btn-primary" data-dismiss="modal">Confirm Deletion</button>
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel Deletion</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                   </td>
                 </tr>
             ))}
@@ -59,7 +99,8 @@ const CollaboratorsView = (props) => (
       </div>
       <div className="col-md-1"></div>
     </div>
-);
+        )
+    };
 
 const mapStateToProps = ({PlanReducer, AppReducer}) => {
   const activePlan = PlanReducer.getIn([ 'plans', PlanReducer.get('activePlan') ]);
