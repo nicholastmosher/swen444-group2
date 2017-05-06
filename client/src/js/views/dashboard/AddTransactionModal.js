@@ -146,7 +146,7 @@ class AddTransactionModal extends Component {
               <div className="form-group col-md-12">
                 <span className="required">* </span>
                 <label className="radio-inline">
-                  <input id="amountType" type="radio" name="amountTypeRadio" value="income" onChange={this.handleAmountType}/>Income
+                  <input id="amountType" type="radio" name="amountTypeRadio" value="income" checked={true} onChange={this.handleAmountType}/>Income
                 </label>
                 <label className="radio-inline">
                   <input id="amountType" type="radio" name="amountTypeRadio" value="expense" onChange={this.handleAmountType}/>Expense
@@ -155,12 +155,16 @@ class AddTransactionModal extends Component {
               <div className={classNames('form-group', 'col-md-12', {
                 'has-danger': !this.state.validAmount && this.state.failedSubmit,
               })}>
-                <label className="form-control-label"><span className="required">* </span>Amount</label>
-                <input id="Amount"
-                       className="form-control"
-                       type="text"
-                       value={this.state.amount}
-                       onChange={this.handleAmount}/>
+                <label className="form-control-label">
+                <span className="required">* </span>Amount</label>
+                <div className="input-group">
+                  <span className="input-group-addon">$</span>
+                  <input id="Amount"
+                         className="form-control"
+                         type="text"
+                         value={this.state.amount}
+                         onChange={this.handleAmount}/>
+                </div>
                 {this.amountFeedback()}
               </div>
               <div className="form-group col-md-12">
