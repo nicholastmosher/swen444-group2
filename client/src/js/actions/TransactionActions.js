@@ -4,14 +4,13 @@
 import { TransactionActionTypes } from '../constants/TransactionActionTypes';
 import { List } from 'immutable';
 
-export const addTransaction = (baseTid, date, description, amount, category, tags = List( )) => ({
+export const addTransaction = (baseTid, date, description, amount, category) => ({
   type: TransactionActionTypes.ADD_TRANSACTION,
   baseTid,
   date,
   description,
   amount,
   category,
-  tags,
 });
 
 export const removeTransaction = (planId) => ({

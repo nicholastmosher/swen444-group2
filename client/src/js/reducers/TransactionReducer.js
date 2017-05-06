@@ -21,7 +21,6 @@ const TransactionReducer = (state = transactions, action) => {
         amount: action.amount,
         next: undefined,
         category: action.category,
-        tags: action.tags,
       });
 
       const baseT = state.getIn([ 'transactions', action.baseTid ]);

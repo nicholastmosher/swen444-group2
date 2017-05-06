@@ -103,10 +103,6 @@ class TransactionView extends Component {
                     <td>Category</td>
                     <td>{this.props.tById(this.state.selectedTid).category}</td>
                   </tr>
-                  <tr>
-                    <td>Tags</td>
-                    <td>{toCSV(this.props.tById(this.state.selectedTid).tags)}</td>
-                  </tr>
                 </tbody>
               </table>
             </div>
