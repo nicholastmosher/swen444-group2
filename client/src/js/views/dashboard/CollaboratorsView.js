@@ -81,11 +81,11 @@ const CollaboratorsView = (props) => {
                                     </button>
                                   </div>
                                   <div className="modal-body">
-                                    <p>Are you sure you want to revoke access for {collaborator.get('firstName')}?</p>
+                                    <p>Are you sure you want to revoke access for {collaborator.get('email')}?</p>
                                   </div>
                                   <div className="modal-footer">
-                                    <button type="button" className="btn btn-primary" data-dismiss="modal">Confirm Deletion</button>
-                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel Deletion</button>
+                                    <button type="button" className="btn btn-primary" data-dismiss="modal">Confirm Revocation</button>
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel Revocation</button>
                                   </div>
                                 </div>
                               </div>
