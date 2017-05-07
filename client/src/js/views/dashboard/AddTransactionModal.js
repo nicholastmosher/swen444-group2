@@ -134,24 +134,6 @@ class AddTransactionModal extends Component {
               })}>
                 <label className="form-control-label">
                 <span className="required">* </span>Amount</label>
-                <div className="form-group col-md-12">
-                  <label className="radio-inline">
-                    <input id="amountType"
-                           type="radio"
-                           name="amountTypeRadio"
-                           value={AMOUNT_TYPES.EXPENSE}
-                           checked={this.state.type === AMOUNT_TYPES.EXPENSE}
-                           onChange={this.handleAmountType}/>Expense
-                  </label>
-                  <label className="radio-inline">
-                    <input id="amountType"
-                           type="radio"
-                           name="amountTypeRadio"
-                           value={AMOUNT_TYPES.INCOME}
-                           checked={this.state.type === AMOUNT_TYPES.INCOME}
-                           onChange={this.handleAmountType}/>Income
-                  </label>
-                </div>
                 <div className="input-group">
                   <span className="input-group-addon">$</span>
                   <input id="Amount"
@@ -162,6 +144,24 @@ class AddTransactionModal extends Component {
                          onChange={this.handleAmount}/>
                 </div>
                 {this.amountFeedback()}
+                  <div className="form-group col-md-12 gimme-space">
+                      <label className="radio-inline">
+                          <input id="amountType"
+                                 type="radio"
+                                 name="amountTypeRadio"
+                                 value={AMOUNT_TYPES.EXPENSE}
+                                 checked={this.state.type === AMOUNT_TYPES.EXPENSE}
+                                 onChange={this.handleAmountType}/>&nbsp;Expense&nbsp;&nbsp;
+                      </label>
+                      <label className="radio-inline">
+                          <input id="amountType"
+                                 type="radio"
+                                 name="amountTypeRadio"
+                                 value={AMOUNT_TYPES.INCOME}
+                                 checked={this.state.type === AMOUNT_TYPES.INCOME}
+                                 onChange={this.handleAmountType}/>&nbsp;Income
+                      </label>
+                  </div>
               </div>
               <div className="form-group col-md-12">
                 <label className="form-control-label"><span className="required">* </span>Category</label>
