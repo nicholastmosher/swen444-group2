@@ -109,6 +109,7 @@ class AddTransactionModal extends Component {
               })}>
                 <label className="form-control-label"><span className="required">* </span>Description</label>
                 <input id="Description"
+                       placeholder="Example: 'Got Paid Today'"
                        className="form-control"
                        type="text"
                        value={this.state.description}
@@ -126,33 +127,33 @@ class AddTransactionModal extends Component {
                        onChange={this.handleDate}/>
                 {this.dateFeedback()}
               </div>
-              <div className="form-group col-md-12">
-                <span className="required">* </span>
-                <label className="radio-inline">
-                  <input id="amountType"
-                         type="radio"
-                         name="amountTypeRadio"
-                         value={AMOUNT_TYPES.INCOME}
-                         checked={this.state.type === AMOUNT_TYPES.INCOME}
-                         onChange={this.handleAmountType}/>Income
-                </label>
-                <label className="radio-inline">
-                  <input id="amountType"
-                         type="radio"
-                         name="amountTypeRadio"
-                         value={AMOUNT_TYPES.EXPENSE}
-                         checked={this.state.type === AMOUNT_TYPES.EXPENSE}
-                         onChange={this.handleAmountType}/>Expense
-                </label>
-              </div>
               <div className={classNames('form-group', 'col-md-12', {
                 'has-danger': !this.validAmount() && this.check(),
               })}>
                 <label className="form-control-label">
                 <span className="required">* </span>Amount</label>
+                <div className="form-group col-md-12">
+                  <label className="radio-inline">
+                    <input id="amountType"
+                           type="radio"
+                           name="amountTypeRadio"
+                           value={AMOUNT_TYPES.INCOME}
+                           checked={this.state.type === AMOUNT_TYPES.INCOME}
+                           onChange={this.handleAmountType}/>Income
+                  </label>
+                  <label className="radio-inline">
+                    <input id="amountType"
+                           type="radio"
+                           name="amountTypeRadio"
+                           value={AMOUNT_TYPES.EXPENSE}
+                           checked={this.state.type === AMOUNT_TYPES.EXPENSE}
+                           onChange={this.handleAmountType}/>Expense
+                  </label>
+                </div>
                 <div className="input-group">
                   <span className="input-group-addon">$</span>
                   <input id="Amount"
+                         placeholder="0.00"
                          className="form-control"
                          type="text"
                          value={this.state.amount}
@@ -165,6 +166,7 @@ class AddTransactionModal extends Component {
                 <input id="Category"
                        className="form-control"
                        type="text"
+                       placeholder="Example Transaction Category: Gas, Recreation, Income, etc."
                        value={this.state.category}
                        onChange={this.handleCategory}/>
               </div>
