@@ -57,7 +57,7 @@ class AddTransactionModal extends Component {
     let dateString = (date.getMonth() + 1) + "/" + (date.getDate() + 1) + "/" + date.getFullYear();
 
     // Amount is positive for income, negative for expense.
-    const a = parseInt(this.state.amount);
+    const a = parseFloat(this.state.amount);
     const amount = (this.state.type === AMOUNT_TYPES.EXPENSE) ?
       (a < 0 ? a : -a) :
       (a > 0 ? a : -a);
