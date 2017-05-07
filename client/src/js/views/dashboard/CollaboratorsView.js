@@ -87,9 +87,9 @@ const CollaboratorsView = (props) => {
                               <p>Are you sure you want to revoke access for {collaborator.get('email')}?</p>
                             </div>
                             <div className="modal-footer">
-                              <button type="button" className="btn btn-primary" data-dismiss="modal">Confirm Deletion
+                              <button type="button" className="btn btn-primary" data-dismiss="modal">Confirm Removal of Collaborator
                               </button>
-                              <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel Deletion
+                              <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel Removal
                               </button>
                             </div>
                           </div>

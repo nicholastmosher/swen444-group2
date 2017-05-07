@@ -171,24 +171,25 @@ export const transactions = fromJS({
       amount: 1000.00,
       next: '1',
       category: '4',
-      tags: List([ '0', '1', '2' ]),
+      tags: List([ ]),
     }),
     '1': Transaction({
       id: '1',
-      date: '03/05/10',
+      date: '03/12/10',
       description: 'Drove to Philly',
       amount: -34.22,
       next: '2',
       category: '1',
-      tags: List([ '2' ]),
+      tags: List([ ]),
     }),
     '2': Transaction({
       id: '2',
-      date: '03/05/10',
+      date: '03/16/10',
       description: 'Bought a bike.',
       amount: -111.23,
+      next: '8',
       category: '3',
-      tags: List([ '4' ]),
+      tags: List([ ]),
     }),
     '3': Transaction({
       id: '3',
@@ -234,6 +235,23 @@ export const transactions = fromJS({
       category: '8',
       tags: List([ ]),
     }),
+    '8': Transaction({
+      id: '8',
+      date: '03/24/17',
+      description: 'Birthday Gift',
+      amount: 500.00,
+      next: '9',
+      category: '9',
+      tags: List([ ]),
+    }),
+    '9': Transaction({
+      id: '9',
+      date: '03/29/17',
+      description: 'Sam Broke Arm - Medical Bill',
+      amount: -740.53,
+      category: '10',
+      tags: List([ ]),
+    }),
   },
   tags: {
     '0': Tag({
@@ -271,6 +289,14 @@ export const transactions = fromJS({
     '8': Tag({
       id: '8',
       key: 'Governmental Grant',
+    }),
+    '9': Tag({
+      id: '9',
+      key: 'Gift',
+    }),
+    '10': Tag({
+      id: '10',
+      key: 'Medical',
     }),
   },
 });
