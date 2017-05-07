@@ -37,7 +37,7 @@ const NavigationView = (props) => (
                 New Plan
               </button>
               {props.plans.valueSeq().map((plan) => (
-                  <NavLink to="/dashboard" activeClassName="active"><NavigationPlanView key={plan.id} plan={plan} modalId="confirmDeletePlan"/></NavLink>
+                  <NavLink key={plan.id} to="/dashboard" activeClassName="active"><NavigationPlanView plan={plan} modalId="confirmDeletePlan"/></NavLink>
               ))}
             </div>
           </div>
