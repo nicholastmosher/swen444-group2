@@ -37,7 +37,7 @@ const NavigationView = (props) => (
                 New Plan
               </button>
               {props.plans.valueSeq().map((plan) => (
-                <NavigationPlanView key={plan.id} plan={plan} modalId="confirmDeletePlan"/>
+                  <NavLink to="/dashboard" activeClassName="active"><NavigationPlanView key={plan.id} plan={plan} modalId="confirmDeletePlan"/></NavLink>
               ))}
             </div>
           </div>
@@ -56,9 +56,6 @@ const NavigationView = (props) => (
         </li>
         <li className="nav-inline-item-right">
           <ul>
-            <li className="nav-inline-item">
-              <NavLink to="/dashboard/notifications" activeClassName="active">Notifications</NavLink>
-            </li>
             <li className="nav-inline-item">
               <div className="dropdown">
                 <a className="dropdown-toggle"

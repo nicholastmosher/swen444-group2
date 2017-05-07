@@ -98,7 +98,7 @@ class GraphsView extends Component {
                         <h4 className="option-config">Filter by Date</h4>
                         <DatePicker />
 
-                        <h4 className="option-config">Filter by Category</h4>
+                        <h4 className="option-config">Filter by Transaction Type</h4>
                         <div className="radio">
                             <label>
                                 <input type="radio" name="filterRadio" value="Income" defaultChecked
@@ -112,19 +112,6 @@ class GraphsView extends Component {
                                 &nbsp;Expenses
                             </label>
                         </div>
-                        <h4 className="option-config">Filter by Tags</h4>
-                        <label>
-                            <input type="checkbox" name="vehicle" value="Bike"/>
-                            &nbsp;Tag 1
-                        </label><br/>
-                        <label>
-                            <input type="checkbox" name="vehicle" value="Bike"/>
-                            &nbsp;Tag 2
-                        </label><br/>
-                        <label>
-                            <input type="checkbox" name="vehicle" value="Bike"/>
-                            &nbsp;Tag 3
-                        </label><br/>
                     </div>
                     <div className="col-md-1"></div>
 
