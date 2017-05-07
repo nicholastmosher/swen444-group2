@@ -84,24 +84,24 @@ class TransactionView extends Component {
               <table className="table table-striped">
                 <tbody>
                   <tr>
-                    <td>Description</td>
-                    <td>{this.props.tById(this.state.selectedTid).description}</td>
+                    <td className="td-transactions">Description</td>
+                    <td className="td-transactions">{this.props.tById(this.state.selectedTid).description}</td>
                   </tr>
                   <tr>
-                    <td>Date</td>
-                    <td>{this.props.tById(this.state.selectedTid).date}</td>
+                    <td className="td-transactions">Date</td>
+                    <td className="td-transactions">{this.props.tById(this.state.selectedTid).date}</td>
                   </tr>
                   <tr>
-                    <td>Amount</td>
-                    <td>{this.props.tById(this.state.selectedTid).amount}</td>
+                    <td className="td-transactions">Amount</td>
+                    <td className="td-transactions">{this.props.tById(this.state.selectedTid).amount}</td>
                   </tr>
                   <tr>
-                    <td>Remaining Balance</td>
-                    <td>{this.props.transactions.get(this.props.tById(this.state.selectedTid))}</td>
+                    <td className="td-transactions">Remaining Balance</td>
+                    <td className="td-transactions">{this.props.transactions.get(this.props.tById(this.state.selectedTid))}</td>
                   </tr>
                   <tr>
-                    <td>Category</td>
-                    <td>{this.props.tById(this.state.selectedTid).category}</td>
+                    <td className="td-transactions">Category</td>
+                    <td className="td-transactions">{this.props.tById(this.state.selectedTid).category}</td>
                   </tr>
                 </tbody>
               </table>
