@@ -16,6 +16,10 @@ const TransactionReducer = (state = transactions, action) => {
 
       const category = state.get('tags').find((v, k) => v.key === action.category);
 
+      console.log("Adding transaction with category:");
+      console.log(state.get('tags'));
+      console.log(category);
+
       const t = new Transaction({
         id: newKey(state.get('transactions')).toString(),
         date: action.date,
@@ -37,10 +41,10 @@ const TransactionReducer = (state = transactions, action) => {
       return state;
 
     case TransactionActionTypes.ADD_TAG:
-      if (state.get('tags').find((v, k) => v.key === action.category)) return state;
+      if (state.get('tags').find((v, k) => v.key === action.tag)) return state;
       const tag = new Tag({
         id: newKey(state.get('tags')),
-        key: action.category,
+        key: action.tag,
       });
       return state.setIn([ 'tags', tag.id ], tag);
 

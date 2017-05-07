@@ -23,6 +23,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "immutable": "^3.8.1",
+    "jquery": "^3.2.1",
     "lodash.omit": "latest",
     "moment": "^2.18.1",
     "react": "^15.4.2",
