@@ -41,13 +41,8 @@ class AddTransactionModal extends Component {
   validAmount = () => !isNaN(this.state.amount);
 
   handleSubmit = () => {
-    console.log("HandleSubmit");
-    //convert date to correct format
-    let date = new Date(this.state.date);
 
-    //KNOWN BUG: There is some sort of localization issue with getDate where it often shows the day to be a day behind
-    let dateString = (date.getMonth() + 1) + "/" + (date.getDate() + 1) + "/" + date.getFullYear();
-
+    // Check valid inputs before submitting.
     if (!this.validDescription() ||
         !this.validDate() ||
         !this.validAmount()) {
@@ -55,16 +50,23 @@ class AddTransactionModal extends Component {
       return;
     }
 
-    if (this.state.type === AMOUNT_TYPES.EXPENSE) {
-      console.log("setting value to expense...");
-      this.setState({ amount: parseInt(this.state.amount) * -1 });
-    }
+    // Convert date to correct format
+    let date = new Date(this.state.date);
+
+    // KNOWN BUG: There is some sort of localization issue with getDate where it often shows the day to be a day behind
+    let dateString = (date.getMonth() + 1) + "/" + (date.getDate() + 1) + "/" + date.getFullYear();
+
+    // Amount is positive for income, negative for expense.
+    const a = parseInt(this.state.amount);
+    const amount = (this.state.type === AMOUNT_TYPES.EXPENSE) ?
+      (a < 0 ? a : -a) :
+      (a > 0 ? a : -a);
 
     this.props.addTransaction(
       this.props.baseTid,
       dateString,
       this.state.description,
-      parseInt(this.state.amount),
+      amount,
       this.state.category,
     );
     $('#' + this.props.modalId).modal('hide');
@@ -137,17 +139,17 @@ class AddTransactionModal extends Component {
                     <input id="amountType"
                            type="radio"
                            name="amountTypeRadio"
-                           value={AMOUNT_TYPES.INCOME}
-                           checked={this.state.type === AMOUNT_TYPES.INCOME}
-                           onChange={this.handleAmountType}/>Income
+                           value={AMOUNT_TYPES.EXPENSE}
+                           checked={this.state.type === AMOUNT_TYPES.EXPENSE}
+                           onChange={this.handleAmountType}/>Expense
                   </label>
                   <label className="radio-inline">
                     <input id="amountType"
                            type="radio"
                            name="amountTypeRadio"
-                           value={AMOUNT_TYPES.EXPENSE}
-                           checked={this.state.type === AMOUNT_TYPES.EXPENSE}
-                           onChange={this.handleAmountType}/>Expense
+                           value={AMOUNT_TYPES.INCOME}
+                           checked={this.state.type === AMOUNT_TYPES.INCOME}
+                           onChange={this.handleAmountType}/>Income
                   </label>
                 </div>
                 <div className="input-group">
