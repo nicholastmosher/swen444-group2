@@ -171,6 +171,14 @@ class GraphsView extends Component {
                             <div className="row horizontalLine">
                                 <div className="col-md-12 topMargin">
                                     <h3>Budget Progress Bars</h3>
+                                    <div className="progress">
+                                        <div className="progress-bar snapshot-bar-income" role="progressbar" style={{width: this.props.snapshotWidth}}>
+                                            ${this.props.amountOfBudget} of ${this.props.incomeVal}
+                                        </div>
+                                        <div className="progress-bar snapshot-bar-remaining" role="progressbar" style={{width: this.props.remainingWidth}}>
+                                            ${this.props.net} remaining
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -193,6 +201,9 @@ const mapStateToProps = ({PlanReducer, TransactionReducer}) => {
     const expense = getExpenseData(TransactionReducer, baseTransactionId);
     const balanceData = getBalanceData(TransactionReducer, baseTransactionId);
     const transactions = getMostRecentTransactions(TransactionReducer, baseTransactionId, 3);
+
+    const snapshotWidth = ((balanceData.Expense/(balanceData.Income + Math.abs(balanceData.Expense))) * 100).toString() + "%";
+    const remainingWidth = (100 - ((balanceData.Expense/(balanceData.Income + Math.abs(balanceData.Expense))) * 100)).toString() + "%";
     const amountOfBudget = Math.abs(balanceData.Expense);
     return ({
         planName,
@@ -201,8 +212,11 @@ const mapStateToProps = ({PlanReducer, TransactionReducer}) => {
         graphData,
         income,
         expense,
+        incomeVal: balanceData.Income,
         net: balanceData.Net,
         transactions,
+        snapshotWidth,
+        remainingWidth,
         amountOfBudget,
     });
 };
