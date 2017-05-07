@@ -50,6 +50,10 @@
   color:#D9230F;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 .search-query:focus + button {
   z-index: 3;
 }

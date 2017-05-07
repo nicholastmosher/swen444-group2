@@ -144,7 +144,7 @@ class GraphsView extends Component {
                         <div className="col-md-12">
                             <div className="row row-inner">
                                 <div id="generateReport" className="col-md-12 row-inner text-right">
-                                    <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#reportModal">
+                                    <button type="button" className="btn btn-success" data-toggle="modal" data-target="#reportModal">
                                         Generate a Report
                                     </button>
                                     <div className="modal fade" id="reportModal">

@@ -167,7 +167,7 @@ export const transactions = fromJS({
     '0': Transaction({
       id: '0',
       date: '03/05/10',
-      description: 'Buying some stuff one day',
+      description: 'Got Paid',
       amount: 1000.00,
       next: '1',
       category: '4',
@@ -176,7 +176,7 @@ export const transactions = fromJS({
     '1': Transaction({
       id: '1',
       date: '03/05/10',
-      description: 'Buying some stuff two day',
+      description: 'Drove to Philly',
       amount: -34.22,
       next: '2',
       category: '1',
@@ -185,7 +185,7 @@ export const transactions = fromJS({
     '2': Transaction({
       id: '2',
       date: '03/05/10',
-      description: 'Buying some stuff today',
+      description: 'Bought a bike.',
       amount: -111.23,
       category: '3',
       tags: List([ '4' ]),
@@ -193,7 +193,7 @@ export const transactions = fromJS({
     '3': Transaction({
       id: '3',
       date: '03/05/17',
-      description: 'Made a lot of cash money',
+      description: 'Huge Raise',
       amount: 10000.99,
       category: '4',
       tags: List([ ]),

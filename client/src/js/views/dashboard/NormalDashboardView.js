@@ -59,10 +59,8 @@ const NormalDashboardView = (props) => (
                 />
               </div>
             </div>
-            <div className="row container date-picker-container">
-              <div className="col-md-5">
-                <DatePicker />
-              </div>
+            <div className="row container date-picker-container justify-content-center">
+              <DatePicker />
             </div>
             <br/>
             <div className="row row-inner">

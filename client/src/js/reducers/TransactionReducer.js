@@ -3,7 +3,7 @@
  */
 import { TransactionActionTypes } from '../constants/TransactionActionTypes';
 import { Seq } from 'immutable';
-import { Transaction } from '../data/Records';
+import { Transaction, Tag } from '../data/Records';
 import { transactions } from '../data/Presets';
 import { newKey, entityIterator } from '../data/Utils';
 
@@ -14,13 +14,15 @@ const TransactionReducer = (state = transactions, action) => {
     case TransactionActionTypes.ADD_TRANSACTION:
       console.log("Adding transaction...");
 
+      const category = state.get('tags').find((v, k) => v.key === action.category);
+
       const t = new Transaction({
         id: newKey(state.get('transactions')).toString(),
         date: action.date,
         description: action.description,
         amount: action.amount,
         next: undefined,
-        category: action.category,
+        category: category.id,
       });
 
       const baseT = state.getIn([ 'transactions', action.baseTid ]);
@@ -33,6 +35,14 @@ const TransactionReducer = (state = transactions, action) => {
       state = state.setIn([ 'transactions', lastTid, 'next' ], t.id);
 
       return state;
+
+    case TransactionActionTypes.ADD_TAG:
+      if (state.get('tags').find((v, k) => v.key === action.category)) return state;
+      const tag = new Tag({
+        id: newKey(state.get('tags')),
+        key: action.category,
+      });
+      return state.setIn([ 'tags', tag.id ], tag);
 
     case TransactionActionTypes.REMOVE_TRANSACTION:
       return state; //TODO implement
