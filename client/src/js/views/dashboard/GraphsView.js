@@ -158,12 +158,40 @@ class GraphsView extends Component {
                             <div className="row horizontalLine">
                                 <div className="col-md-12 topMargin">
                                     <h3>Budget Progress Bars</h3>
+                                    <h4>Overall Budget</h4>
                                     <div className="progress">
                                         <div className="progress-bar snapshot-bar-income" role="progressbar" style={{width: this.props.snapshotWidth}}>
                                             ${this.props.amountOfBudget} of ${this.props.incomeVal}
                                         </div>
                                         <div className="progress-bar snapshot-bar-remaining" role="progressbar" style={{width: this.props.remainingWidth}}>
                                             ${this.props.net} remaining
+                                        </div>
+                                    </div>
+                                    <h4>Food Budget</h4>
+                                    <div className="progress">
+                                        <div className="progress-bar snapshot-bar-income" role="progressbar" style={{width: this.props.snapshotWidth}}>
+                                            ${300} of ${this.props.incomeVal/4}
+                                        </div>
+                                        <div className="progress-bar snapshot-bar-remaining" role="progressbar" style={{width: this.props.remainingWidth}}>
+                                            ${this.props.incomeVal/4 - 300} remaining
+                                        </div>
+                                    </div>
+                                    <h4>Gas Budget</h4>
+                                    <div className="progress">
+                                        <div className="progress-bar snapshot-bar-income" role="progressbar" style={{width: this.props.snapshotWidth}}>
+                                            ${this.props.expense[1][1]} of ${this.props.incomeVal/4}
+                                        </div>
+                                        <div className="progress-bar snapshot-bar-remaining" role="progressbar" style={{width: this.props.remainingWidth}}>
+                                            ${this.props.incomeVal/4 - this.props.expense[1][1]} remaining
+                                        </div>
+                                    </div>
+                                    <h4>Recreation Budget</h4>
+                                    <div className="progress">
+                                        <div className="progress-bar snapshot-bar-income" role="progressbar" style={{width: this.props.snapshotWidth}}>
+                                            ${this.props.expense[2][1]} of ${this.props.incomeVal/4}
+                                        </div>
+                                        <div className="progress-bar snapshot-bar-remaining" role="progressbar" style={{width: this.props.remainingWidth}}>
+                                            ${this.props.incomeVal/4 - this.props.expense[2][1]} remaining
                                         </div>
                                     </div>
                                 </div>
@@ -190,9 +218,9 @@ const mapStateToProps = ({PlanReducer, TransactionReducer}) => {
     const transactions = getMostRecentTransactions(TransactionReducer, baseTransactionId, 3);
 
     const snapshotWidth = Math.abs(((balanceData.Expense/(balanceData.Income + Math.abs(balanceData.Expense))) * 100)).toString() + "%";
-    const remainingWidth = Math.abs((100 - ((balanceData.Expense/(balanceData.Income + Math.abs(balanceData.Expense))) * 100))).toString() + "%";
+    const remainingWidth = (100 - ((balanceData.Expense/(balanceData.Income + Math.abs(balanceData.Expense))) * 100)).toString() + "%";
     const amountOfBudget = Math.abs(balanceData.Expense);
-    console.log(snapshotWidth);
+    console.log(expense);
     return ({
         planName,
         planId,
