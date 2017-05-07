@@ -3,20 +3,21 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { List } from 'immutable';
 import $ from 'jquery';
 import classNames from 'classnames';
 import { addTransaction } from '../../actions/TransactionActions';
 
+const AMOUNT_TYPES = {
+  INCOME: 'INCOME',
+  EXPENSE: 'EXPENSE',
+};
+
 const initialState = {
   description: '',
-  validDescription: false,
   date: '',
-  validDate: false,
-  amount: '',
-  validAmount: false,
+  amount: undefined,
+  type: AMOUNT_TYPES.EXPENSE,
   category: '',
-  tags: '',
   failedSubmit: false,
 };
 
@@ -26,35 +27,18 @@ class AddTransactionModal extends Component {
     this.state = initialState;
   }
 
-  reset = () => {
-    this.setState(initialState);
-  };
+  reset = () => this.setState(initialState);
+  check = () => this.state.failedSubmit;
 
-  handleDescription = (e) => {
-    const description = e.target.value;
-    this.setState(state => ({description, validDescription: !!description}));
-  };
+  handleDescription = (e) => this.setState({ description: e.target.value });
+  handleDate = (e) => this.setState({ date: e.target.value });
+  handleAmount = (e) => this.setState({ amount: e.target.value });
+  handleAmountType = (e) => this.setState({ type: e.target.value });
+  handleCategory = (e) => this.setState({ category: e.target.value });
 
-  handleDate = (e) => {
-    let date = e.target.value;
-    this.setState(state => ({date, validDate: !!date}));
-  };
-
-  handleAmountType = (e) =>
-  {
-    const amountType = e.target.value;
-    this.setState(state => ({amountType}))
-  };
-
-  handleAmount = (e) => {
-    const amount = e.target.value;
-    this.setState(state => ({amount, validAmount: !isNaN(amount)}))
-  };
-
-  handleCategory = (e) => {
-    const category = e.target.value;
-    this.setState(state => ({category}));
-  };
+  validDescription = () => !!this.state.description;
+  validDate = () => !!this.state.date;
+  validAmount = () => !isNaN(this.state.amount);
 
   handleSubmit = () => {
     console.log("HandleSubmit");
@@ -64,17 +48,16 @@ class AddTransactionModal extends Component {
     //KNOWN BUG: There is some sort of localization issue with getDate where it often shows the day to be a day behind
     let dateString = (date.getMonth() + 1) + "/" + (date.getDate() + 1) + "/" + date.getFullYear();
 
-    if (!this.state.validDescription ||
-        !this.state.validDate ||
-        !this.state.validAmount) {
-      this.setState(state => ({failedSubmit: true}));
+    if (!this.validDescription() ||
+        !this.validDate() ||
+        !this.validAmount()) {
+      this.setState({failedSubmit: true});
       return;
     }
 
-    if (this.state.amountType == "expense")
-    {
+    if (this.state.type === AMOUNT_TYPES.EXPENSE) {
       console.log("setting value to expense...");
-      this.state.amount = parseInt(this.state.amount) * -1;
+      this.setState({ amount: parseInt(this.state.amount) * -1 });
     }
 
     this.props.addTransaction(
@@ -89,21 +72,21 @@ class AddTransactionModal extends Component {
   };
 
   descFeedback = () => (
-    !this.state.validDescription && this.state.failedSubmit ?
+    !this.validDescription() && this.check() ?
       <div className="form-control-feedback">
         Descriptions can't be blank
       </div> : null
   );
 
   dateFeedback = () => (
-    !this.state.validDate && this.state.failedSubmit ?
+    !this.validDate() && this.check() ?
       <div className="form-control-feedback">
         Date is required and must be as 'MM/DD/YYYY'
       </div> : null
   );
 
   amountFeedback = () => (
-    !this.state.validAmount && this.state.failedSubmit ?
+    !this.validAmount() && this.check() ?
       <div className="form-control-feedback">
         Amount must be a number
       </div> : null
@@ -122,7 +105,7 @@ class AddTransactionModal extends Component {
             </div>
             <div className="modal-body">
               <div className={classNames('form-group', 'col-md-12', {
-                'has-warning': !this.state.validDescription && this.state.failedSubmit,
+                'has-warning': !this.validDescription() && this.check(),
               })}>
                 <label className="form-control-label"><span className="required">* </span>Description</label>
                 <input id="Description"
@@ -134,7 +117,7 @@ class AddTransactionModal extends Component {
                 {this.descFeedback()}
               </div>
               <div className={classNames('form-group', 'col-md-12', {
-                'has-warning': !this.state.validDate && this.state.failedSubmit,
+                'has-warning': !this.validDate() && this.check(),
               })}>
                 <label className="form-control-label"><span className="required">* </span>Date</label>
                 <input id="Date"
@@ -145,16 +128,26 @@ class AddTransactionModal extends Component {
                 {this.dateFeedback()}
               </div>
               <div className={classNames('form-group', 'col-md-12', {
-                'has-danger': !this.state.validAmount && this.state.failedSubmit,
+                'has-danger': !this.validAmount() && this.check(),
               })}>
                 <label className="form-control-label">
                 <span className="required">* </span>Amount</label>
-                <div className="form-group">
+                <div className="form-group col-md-12">
                   <label className="radio-inline">
-                    <input id="amountType" type="radio" name="amountTypeRadio" value="income" checked={true} onChange={this.handleAmountType}/>&nbsp;Income&nbsp;&nbsp;
+                    <input id="amountType"
+                           type="radio"
+                           name="amountTypeRadio"
+                           value={AMOUNT_TYPES.INCOME}
+                           checked={this.state.type === AMOUNT_TYPES.INCOME}
+                           onChange={this.handleAmountType}/>Income
                   </label>
                   <label className="radio-inline">
-                    <input id="amountType" type="radio" name="amountTypeRadio" value="expense" onChange={this.handleAmountType}/>&nbsp;Expense
+                    <input id="amountType"
+                           type="radio"
+                           name="amountTypeRadio"
+                           value={AMOUNT_TYPES.EXPENSE}
+                           checked={this.state.type === AMOUNT_TYPES.EXPENSE}
+                           onChange={this.handleAmountType}/>Expense
                   </label>
                 </div>
                 <div className="input-group">
