@@ -6,6 +6,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import NavigationPlanView from './NavigationPlanView';
+import AddPlanModal from './AddPlanModal';
 import ConfirmDeleteModal from '../../components/ConfirmDeleteModal';
 import { logOut } from '../../actions/AppActions';
 import { selectPlan } from '../../actions/PlanActions';
@@ -29,10 +30,11 @@ const NavigationView = (props) => (
                 aria-expanded="false">
               Financial Plans
             </a>
+            <AddPlanModal modalId="addPlanModal" />
             <ConfirmDeleteModal modalId="confirmDeletePlan"
                                 message="Deleting a plan cannot be undone."/>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <button className="dropdown-item">
+              <button className="dropdown-item" data-toggle="modal" data-target="#addPlanModal">
                 <span className="glyphicon-plus">+ </span>
                 New Plan
               </button>
