@@ -203,7 +203,7 @@ const mapStateToProps = ({PlanReducer, TransactionReducer}) => {
     const transactions = getMostRecentTransactions(TransactionReducer, baseTransactionId, 3);
 
     const snapshotWidth = Math.abs(((balanceData.Expense/(balanceData.Income + Math.abs(balanceData.Expense))) * 100)).toString() + "%";
-    const remainingWidth = (100 - ((balanceData.Expense/(balanceData.Income + Math.abs(balanceData.Expense))) * 100)).toString() + "%";
+    const remainingWidth = Math.abs((100 - ((balanceData.Expense/(balanceData.Income + Math.abs(balanceData.Expense))) * 100))).toString() + "%";
     const amountOfBudget = Math.abs(balanceData.Expense);
     console.log(snapshotWidth);
     return ({
