@@ -3,13 +3,48 @@
 ========================================================
 
 --------------------------------------------------------
-                         Setup
+                      User Setup
 --------------------------------------------------------
 
 As this is a web application there is no setup required
 beyond navigating to the hosted URL.
 
 Must use Google Chrome.
+
+--------------------------------------------------------
+             Development Environment Setup
+--------------------------------------------------------
+
+1. You'll need to install npm:
+   http://blog.npmjs.org/post/85484771375/how-to-install-npm
+   
+2. Unzip the MoneyMaid.zip file into desired directory.
+
+3. In Command Prompt navigate to the `client/` directory
+   and run `npm install` to download all of the project
+   dependencies.
+
+4. Once that's done, there are two commands avaiable
+   for building the project:
+   - `npm run dev` will serve the project at "localhost:8080",
+     and dynamically update the served site when the source
+     files change.
+   - `npm run build` will output the static `bundle.js`
+     file into the `public/` folder. After building like this,
+     the site can be served statically by simply navigating to
+     `index.html`.
+
+ ----- If you wish to understand the project -----
+
+  We recommend reading the following source files (in `client/`)
+  to get an understanding of the project structure:
+
+  src/index.js                            # Project root.
+  src/containers/*Name-of*Container.js    # Root "containers" 
+                                          # establish state
+                                          # and action associations.
+  src/views/dashboard/*Name-of*View.js    # View of any application 
+                                          # page.
 
 --------------------------------------------------------
                 Application Instructions
